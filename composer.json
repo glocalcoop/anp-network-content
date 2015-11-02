@@ -1,0 +1,38 @@
+{
+    "name": "glocalcoop/anp-network-content",
+    "authors": [
+        {
+            "name": "Pea, Glocal",
+            "email": "pea@glocal.coop"
+        }
+    ],
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "http://wpackagist.org"
+        },
+    ],
+    "require": {
+    },
+    "require-dev": {
+        "wpackagist-plugin/developer": ">=1.2.5",
+        "wpackagist-plugin/which-template": ">=4.0",
+        "wpackagist-plugin/debug-bar-extender": ">=0.5",
+        "wpackagist-plugin/debug-bar": ">=0.8.2",
+        "wpackagist-plugin/debug-bar-actions-and-filters-addon": ">=1.4.1",
+        "wpackagist-plugin/wp-log-viewer": ">=0.12.5",
+        "wpackagist-plugin/rewrite-rules-inspector": ">=1.2.1",
+        "wpackagist-plugin/simply-show-ids": ">=1.3.3",
+        "wpackagist-plugin/theme-check": ">=20150818.1",
+        "wpackagist-plugin/user-switching": ">=1.0.8",
+        "wpackagist-plugin/wp-example-content": ">=1.3",
+        "phpunit/phpunit": "5.0.*"
+    },
+    "extra": {
+        "installer-paths": {
+            "./wp-content/plugins/{$name}/": ["type:wordpress-plugin"],
+            "./wp-content/themes/{$name}/": ["type:wordpress-theme"],
+            "./wp-content/mu-plugins/{$name}/": ["type:wordpress-muplugin"]
+        }
+    }
+}
