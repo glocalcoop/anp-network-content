@@ -22,22 +22,22 @@ function render_html($posts_array, $options_array) {
 
     // Make each parameter as its own variable
     extract( $settings, EXTR_SKIP );
-    
-    if($style == 'highlights') {
+
+    switch ( $style ) {
+        case 'highlights':
+            //CALL RENDER HIGHLIGHTS HTML FUNCTION
+            $rendered_html = render_highlights_html($posts_array, $settings);
+            break;
+
+        case 'block':
+            //CALL RENDER BLOCK HTML FUNCTION
+            $rendered_html = render_block_html($posts_array, $settings);
+            break;
         
-        //CALL RENDER HIGHLIGHTS HTML FUNCTION
-        $rendered_html = render_highlights_html($posts_array, $settings);
-        
-    } elseif($style == 'block') {
-        
-        //CALL RENDER BLOCK HTML FUNCTION
-        $rendered_html = render_block_html($posts_array, $settings);
-                
-    } else {
-    
-        //CALL RENDER LIST HTML FUNCTION
-        $rendered_html = render_list_html($posts_array, $settings);
-        
+        default:
+            //CALL RENDER LIST HTML FUNCTION
+            $rendered_html = render_list_html($posts_array, $settings);
+            break;
     }
     
     return $rendered_html;
@@ -116,7 +116,7 @@ function render_block_html($posts_array, $options_array) {
         $template = locate_template(array( ANP_NETWORK_CONTENT_PLUGIN_DIR . 'glocal-network-contentanp-post-block-template.php') );
         
         // if none found use the default template
-        if ( $template == '' ) $template = ANP_NETWORK_CONTENT_PLUGIN_DIR . 'templates/anp-post-block-template.php';
+        $template = ( $template == '' ) ? ANP_NETWORK_CONTENT_PLUGIN_DIR . 'templates/anp-post-block-template.php' : '';
         
         include ( $template ); 
 
@@ -188,7 +188,7 @@ function render_sites_list($sites_array, $options_array) {
         $template = locate_template(array( ANP_NETWORK_CONTENT_PLUGIN_DIR . 'anp-sites-list-template.php'));
 
         // if none found use the default template
-        if ( $template == '' ) $template = ANP_NETWORK_CONTENT_PLUGIN_DIR . 'templates/anp-sites-list-template.php';
+        $template = ( $template == '' ) ? ANP_NETWORK_CONTENT_PLUGIN_DIR . 'templates/anp-sites-list-template.php' : '';
 
         include ( $template ); 
         
