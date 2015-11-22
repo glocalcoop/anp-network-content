@@ -7,12 +7,12 @@
 
 $html .= '<li id="site-' . $site_id . '" data-posts="' . $site['post_count'] . '" data-slug="' . $slug . '" data-id="' . $site_id . '" data-updated="' . $site['last_updated'] . '">' ;
 if($show_image) {
-	$html .= '<a href="' . $site['siteurl'] . '" class="item-image site-image" title="' . $site['blogname'] . '" style="background-image:url(\''. $site['site-image'] .' \')">';
+	$html .= '<a href="' . esc_url( $site['siteurl'] ) . '" class="item-image site-image" title="' . $site['blogname'] . '" style="background-image:url(\''. $site['site-image'] .' \')">';
 	$html .= '</a>';
 }
 $html .= '';
 $html .= '<h3 class="site-name">';
-$html .= '<a href="' . $site['siteurl'] . '">';
+$html .= '<a href="' . esc_url( $site['siteurl'] ) . '">';
 $html .= $site['blogname'];
 $html .= '</a>';
 $html .= '</h3>';
@@ -24,7 +24,7 @@ if($show_meta) {
 	$html .= '</time>';
 
 	$html .= '<div class="recent_post">';
-	$html .= '<a href="'. $site['recent_post']['permalink'] .'">';
+	$html .= '<a href="'. esc_url( $site['recent_post']['permalink'] ) .'">';
 	$html .= $site['recent_post']['post_title'];
 	$html .= '</a>';
 	$html .= '<div class="post-meta">';
