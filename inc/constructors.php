@@ -13,6 +13,11 @@
 
 /************* NETWORK POSTS MAIN FUNCTION *****************/
 
+/**
+* 1/5/2016
+* Updates to allow for custom post types
+*/
+
 /************* Parameters *****************
     @number_posts - the total number of posts to display (default: 10)
     @posts_per_site - the number of posts for each site (default: no limit)
@@ -44,11 +49,11 @@
 
 // Input: user-selected options array
 // Output: list of posts from all sites, rendered as HTML or returned as array
-function glocal_networkwide_posts_module($parameters = []) {
+function glocal_networkwide_posts_module( $parameters = [] ) {
 
     // Default parameters
-    // There aren't any now, but there might be some day.
     $defaults = array(
+        'post_type' => 'post', // string - post, event
         'number_posts' => 10, //
         'exclude_sites' => null, 
         'include_categories' => null,
@@ -65,17 +70,27 @@ function glocal_networkwide_posts_module($parameters = []) {
         'excerpt_length' => 55,
         'show_site_name' => True,
     );
+
+    $event_defaults = array(
+        'meta_key' => '_eventorganiser_schedule_start_start',
+        'orderby' => 'meta_value',
+        'order' => 'ASC',
+        'meta_compare' => '>=',
+        'meta_value' => date_i18n('Y-m-d'),
+    );
     
     // CALL MERGE FUNCTION
-    $settings = get_merged_settings($parameters, $defaults);
+    $settings = get_merged_settings( $parameters, $defaults );
+
+    $settings = ( 'event' === $defaults['post_type'] ) ? array_merge( $settings, $event_defaults ) : $settings;
 
     // Extract each parameter as its own variable
     extract( $settings, EXTR_SKIP );
     
     $exclude = $exclude_sites;
     // Strip out all characters except numbers and commas. This is working!
-    $exclude = preg_replace("/[^0-9,]/", "", $exclude);
-    $exclude = explode(",", $exclude);
+    $exclude = preg_replace( "/[^0-9,]/", "", $exclude );
+    $exclude = explode( ",", $exclude );
        
     // Get a list of sites
     $siteargs = array(
@@ -84,15 +99,15 @@ function glocal_networkwide_posts_module($parameters = []) {
         'deleted'    => 0,
         'public'     => 1
     );
-    $sites = wp_get_sites($siteargs);
+    $sites = wp_get_sites( $siteargs );
 
     // CALL EXCLUDE SITES FUNCTION
-    $sites_list = exclude_sites($exclude, $sites);
+    $sites_list = exclude_sites( $exclude, $sites );
     
     // CALL GET POSTS FUNCTION
-    $posts_list = get_posts_list($sites_list, $settings);  
+    $posts_list = get_posts_list( $sites_list, $settings );  
     
-    if($output == 'array') {
+    if( $output == 'array' ) {
         
         // Return an array
         return $posts_list;
@@ -103,7 +118,7 @@ function glocal_networkwide_posts_module($parameters = []) {
     } else {
         // CALL RENDER FUNCTION
         
-        return render_html($posts_list, $settings);
+        return render_html( $posts_list, $settings );
             
     }
 
@@ -184,4 +199,75 @@ function glocal_networkwide_sites_module($parameters = []) {
         
     }
     
+}
+
+
+
+/************* NETWORK EVENTS MAIN FUNCTION *****************/
+
+// Input: user-selected options array
+// Output: list of posts from all sites, rendered as HTML or returned as array
+function anp_networkwide_events_module( $parameters = [] ) {
+
+    // Default parameters
+    $defaults = array(
+        'post_type' => 'event',
+        'number_posts' => 10, // int
+        'exclude_sites' => null, // array
+        //'include_categories' => null,
+        //'posts_per_site' => null,
+        'output' => 'html', // string - html, array
+        'style' => 'list', // string - list, block
+        'id' => 'network-events-' . rand(),
+        'class' => 'event-list',
+        'title' => 'Events',
+        //'title_image' => null,
+        //'show_thumbnail' => False,
+        'show_meta' => True, // boolean
+        //'show_excerpt' => True,
+        //'excerpt_length' => 55,
+        //'show_site_name' => True,
+    );
+    
+    // CALL MERGE FUNCTION
+    $settings = get_merged_settings( $parameters, $defaults );
+
+    // Extract each parameter as its own variable
+    extract( $settings, EXTR_SKIP );
+    
+    $exclude = $exclude_sites;
+    // Strip out all characters except numbers and commas. This is working!
+    $exclude = preg_replace( "/[^0-9,]/", "", $exclude );
+    $exclude = explode( ",", $exclude );
+       
+    // Get a list of sites
+    $siteargs = array(
+        'archived'   => 0,
+        'spam'       => 0,
+        'deleted'    => 0,
+        'public'     => 1
+    );
+    $sites = wp_get_sites( $siteargs );
+
+    // CALL EXCLUDE SITES FUNCTION
+    $sites_list = exclude_sites( $exclude, $sites );
+    
+    // CALL GET POSTS FUNCTION
+    $posts_list = get_posts_list( $sites_list, $settings );  
+    
+    if( $output == 'array' ) {
+        
+        // Return an array
+        return $posts_list;
+        
+        // For testing
+        //return '<pre>' . var_dump($posts_list) . '</pre>';
+            
+    } else {
+        // CALL RENDER FUNCTION
+        
+        return render_html( $posts_list, $settings );
+            
+    }
+
 }
