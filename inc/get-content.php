@@ -137,7 +137,7 @@ function exclude_sites($exclude_array, $sites_array) {
 
 // Inputs: array of sites and parameters array
 // Output: single array of posts with site information, sorted by post_date
-function get_posts_list($sites_array, $options_array) {
+function get_posts_list( $sites_array, $options_array ) {
 
     $sites = $sites_array;
     $settings = $options_array;
@@ -148,21 +148,21 @@ function get_posts_list($sites_array, $options_array) {
     $post_list = array();
 
     // For each site, get the posts
-    foreach($sites as $site => $detail) {
+    foreach( $sites as $site => $detail ) {
 
         $site_id = $detail['blog_id'];
-        $site_details = get_blog_details($site_id);
+        $site_details = get_blog_details( $site_id );
 
         // Switch to the site to get details and posts
-        switch_to_blog($site_id);
+        switch_to_blog( $site_id );
         
         // CALL GET SITE'S POST FUNCTION
         // And add to array of posts
         
         // If get_sites_posts($site_id, $settings) isn't null, add it to the array, else skip it
         // Trying to add a null value to the array using this syntax produces a fatal error. 
-        if( get_sites_posts($site_id, $settings) ) { 
-            $post_list = $post_list + get_sites_posts($site_id, $settings);
+        if( get_sites_posts( $site_id, $settings ) ) { 
+            $post_list = $post_list + get_sites_posts( $site_id, $settings );
         }
         
         // Unswitch the site
@@ -170,11 +170,13 @@ function get_posts_list($sites_array, $options_array) {
 
     }
 
-    // CALL SORT FUNCTION
-    $post_list = sort_by_date($post_list);
+    if( 'event' !== $post_type ) {
+        // CALL SORT FUNCTION
+        $post_list = sort_by_date( $post_list );
+    }
     
     // CALL LIMIT FUNCTIONS
-    $post_list = limit_number_posts($post_list, $number_posts);
+    $post_list = limit_number_posts( $post_list, $number_posts );
 
     return $post_list;
 
@@ -182,7 +184,7 @@ function get_posts_list($sites_array, $options_array) {
 
 // Input: site id and parameters array
 // Ouput: array of posts for site
-function get_sites_posts($site_id, $options_array) {
+function get_sites_posts( $site_id, $options_array ) {
     
     $site_id = $site_id;
     $settings = $options_array;
@@ -190,20 +192,21 @@ function get_sites_posts($site_id, $options_array) {
     // Make each parameter as its own variable
     extract( $settings, EXTR_SKIP );
     
-    $site_details = get_blog_details($site_id);
+    $site_details = get_blog_details( $site_id );
     
     $post_args = array(
         'posts_per_page' => $posts_per_site,
-        'category_name' => $include_categories
     );
+
+    $post_args['category_name'] = ( isset( $include_categories ) ) ? $include_categories : '';
     
     
-    $recent_posts = wp_get_recent_posts($post_args);
+    $recent_posts = wp_get_recent_posts( $post_args );
     
     //$post_list = array();
 
     // Put all the posts in a single array
-    foreach($recent_posts as $post => $postdetail) {
+    foreach( $recent_posts as $post => $postdetail ) {
 
         //global $post;
         
@@ -234,10 +237,18 @@ function get_sites_posts($site_id, $options_array) {
             'permalink' => get_permalink($post_id),
             'post_image' => $post_thumbnail[0],
             'post_class' => $post_markup_class,
+            'post_type' => $post_type,
             'site_id' => $site_id,
             'site_name' => $site_details->blogname,
             'site_link' => $site_details->siteurl,
         );
+
+        if( 'event' === $post_type ) {
+            $post_list[$prefix]['start_date'] = '';
+            $post_list[$prefix]['end_date'] = '';
+            $post_list[$prefix]['venue'] = '';
+
+        }
 
         //Get post categories
         $post_categories = wp_get_post_categories($post_id);
@@ -294,3 +305,5 @@ function get_most_recent_post($site_id) {
     return $recent_post_data;
 
 }
+
+?>
