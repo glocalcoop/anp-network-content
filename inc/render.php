@@ -91,10 +91,10 @@ function render_list_html( $posts_array, $options_array ) {
         
         // use a template for the output so that it can easily be overridden by theme
         // check for template in active theme
-        $template = locate_template( array( ANP_NETWORK_CONTENT_PLUGIN_DIR . 'anp-post-list-template.php' ) );
+        $template = locate_template( array( ANP_NETWORK_CONTENT_PLUGIN_DIR . 'anp-' . $post_type . '-list-template.php' ) );
         
         // if none found use the default template
-        if ( $template == '' ) $template = ANP_NETWORK_CONTENT_PLUGIN_DIR . 'templates/anp-post-list-template.php';
+        if ( $template == '' ) $template = ANP_NETWORK_CONTENT_PLUGIN_DIR . 'templates/anp-' . $post_type . '-list-template.php';
         
         include ( $template ); 
 
@@ -116,11 +116,15 @@ function render_block_html( $posts_array, $options_array ) {
     // Make each parameter as its own variable
     extract( $settings, EXTR_SKIP );
         
-    $html = '<div class="network-posts-list style-' . $style . '">';
+    $html = '<div class="network-posts-list style-' . $style . ' ' . $post_type . '-list">';
 
     foreach( $posts_array as $post => $post_detail ) {
 
         global $post;
+
+        // echo '<pre>render_block_html $post_detail ';
+        // var_dump( $post_detail );
+        // echo '</pre>';
         
         $post_id = $post_detail['post_id'];
         $post_categories = ( isset( $post_detail['categories'] ) ) ? implode( ", ", $post_detail['categories'] ) : '';
@@ -132,10 +136,10 @@ function render_block_html( $posts_array, $options_array ) {
         
         // use a template for the output so that it can easily be overridden by theme
         // check for template in active theme
-        $template = locate_template( array( ANP_NETWORK_CONTENT_PLUGIN_DIR . 'glocal-network-contentanp-post-block-template.php') );
+        $template = locate_template( array( ANP_NETWORK_CONTENT_PLUGIN_DIR . 'anp-' . $post_type . '-block-template.php') );
         
         // if none found use the default template
-        $template = ( $template == '' ) ? ANP_NETWORK_CONTENT_PLUGIN_DIR . 'templates/anp-post-block-template.php' : '';
+        $template = ( $template == '' ) ? ANP_NETWORK_CONTENT_PLUGIN_DIR . 'templates/anp-' . $post_type . '-block-template.php' : '';
         
         include ( $template ); 
 
