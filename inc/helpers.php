@@ -168,3 +168,32 @@ function get_site_header_image($site_id) {
 
     return $site_image->thumbnail_url;
 }
+
+// Input: array
+// Output: new array with sanitized values
+
+function sanitize_input( $input ) {
+    // Initialize the new array that will hold the sanitize values
+    $new_input = array();
+    // Loop through the input and sanitize each of the values
+    foreach ( $input as $key => $val ) {
+
+        //Get variable type
+        $type = gettype( $val );
+
+        if( isset( $input[ $key ] ) ) {
+
+            // Sanitize value
+            $sanitized_val = sanitize_text_field( $val );
+
+            // Set type back to original variable type
+            settype( $sanitized_val, $type );
+
+            // Assign sanitized value
+            $new_input[ $key ] = $sanitized_val;
+
+        }
+        
+    }
+    return $new_input;
+}

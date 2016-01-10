@@ -24,10 +24,10 @@ function get_merged_settings( $user_selections_array, $default_values_array ) {
     // This function converts all arguments to strings
     $settings = wp_parse_args( $parameters, $defaults );
 
-    // Strip out tags
+    // Remove unset items
     foreach( $settings as $parameter => $value ) {
 
-        if( !$settings[$parameter] ) {
+        if( empty( $settings[$parameter] ) ) {
 
             unset( $settings[$parameter] );
 
@@ -53,21 +53,24 @@ function get_sites_list( $options_array ) {
     extract( $settings, EXTR_SKIP );
         
     $siteargs = array( 
-        'limit'      => $number_sites,
+        'limit'      => null,
+        'public'     => 1,
         'archived'   => 0,
         'spam'       => 0,
         'deleted'    => 0,
+        'mature'     => null,
     );
-    
-    $sites = wp_get_sites( $siteargs );
+
+     // Allow the $siteargs to be  changed
+    if( has_filter( 'anp_network_sites_site_arguments' ) ) {
+        $siteargs = apply_filters( 'anp_network_sites_site_arguments', $siteargs );
+    }
 
     // Allow the $siteargs to be changed
-    if( has_filter( 'anp_network_sites_site_arguments' ) ) {
-        $sites = apply_filters( 'anp_network_sites_site_arguments', $sites );
-    }
-    
+    $sites = wp_get_sites( $siteargs );
+
     // CALL EXCLUDE SITES FUNCTION
-    $sites = ( isset( $exclude_sites ) ) ? exclude_sites( $exclude_sites, $sites ) : $sites;
+    $sites = ( isset( $exclude_sites ) && null != $exclude_sites ) ? exclude_sites( $exclude_sites, $sites ) : $sites;
     
     $site_list = array();
     
@@ -86,14 +89,13 @@ function get_sites_list( $options_array ) {
             'post_count' => intval( $site_details->post_count ),
         );
         
-        
         // CALL GET SITE IMAGE FUNCTION
         $site_image = get_site_header_image( $site_id );
         
         if( $site_image ) {
             $site_list[$site_id]['site-image'] = $site_image;
         }
-        elseif( $default_image ) {
+        elseif( isset( $default_image ) ) {
             $site_list[$site_id]['site-image'] = $default_image;
         }
         else {
@@ -120,20 +122,23 @@ function exclude_sites( $exclude_array ) {
 
     // Site statuses to include
     $siteargs = array( 
+        'limit'      => null,
+        'public'     => 1,
         'archived'   => 0,
         'spam'       => 0,
         'deleted'    => 0,
-        'public'     => 1
+        'mature'     => null,
     );
+
+    // Allow the $siteargs to be  changed
+    if( has_filter( 'anp_network_exclude_sites_arguments' ) ) {
+        $siteargs = apply_filters( 'anp_network_exclude_sites_arguments', $siteargs );
+    }
+
+    //var_dump( $siteargs );
 
     // Get a list of sites
     $sites = wp_get_sites( $siteargs );
-
-
-    // Allow the $siteargs to be  changed
-    if( has_filter( 'anp_network_sites_arguments' ) ) {
-        $sites = apply_filters( 'anp_network_sites_arguments', $sites );
-    }
 
     // Remove site that are in the exclude list
     for( $i = 0; $i < count( $sites ); $i++ ) {
@@ -184,9 +189,14 @@ function get_posts_list( $sites_array, $options_array ) {
         
         // If get_sites_posts( $site_id, $settings ) isn't null, add it to the array, else skip it
         // Trying to add a null value to the array using this syntax produces a fatal error. 
+
+        $site_posts = get_sites_posts( $site_id, $settings );
+
         if( get_sites_posts( $site_id, $settings ) ) {
+
             $post_list = $post_list + get_sites_posts( $site_id, $settings );
-        }
+
+        } 
         
         // Unswitch the site
         restore_current_blog();
@@ -201,7 +211,7 @@ function get_posts_list( $sites_array, $options_array ) {
     }
     
     // CALL LIMIT FUNCTIONS
-    $post_list = limit_number_posts( $post_list, $number_posts );
+    $post_list = ( isset( $number_posts ) ) ? limit_number_posts( $post_list, $number_posts ) : $post_list;
 
     return $post_list;
 
@@ -231,7 +241,7 @@ function get_sites_posts( $site_id, $options_array ) {
         if( isset( $include_event_categories ) ) {
             $post_args['tax_query'][] = array(
                 'taxonomy' => 'event-category',
-                'field' => 'name',
+                'field' => 'slug',
                 'terms' => $include_event_categories
             );
         }
@@ -239,7 +249,7 @@ function get_sites_posts( $site_id, $options_array ) {
         if( isset( $include_event_tags ) ) {
             $post_args['tax_query'][] = array(
                 'taxonomy' => 'event-tag',
-                'field' => 'name',
+                'field' => 'slug',
                 'terms' => $include_event_tags
             );
         }
@@ -267,6 +277,10 @@ function get_sites_posts( $site_id, $options_array ) {
         }
 
     }
+
+    // echo '<pre>$post_args ';
+    // var_dump( $post_args );
+    // echo '</pre>';
     
     $recent_posts = wp_get_recent_posts( $post_args );
 
@@ -291,7 +305,7 @@ function get_sites_posts( $site_id, $options_array ) {
         if( $postdetail['post_excerpt'] ) {
             $excerpt = $postdetail['post_excerpt'];
         } else {
-            $excerpt = wp_trim_words( $postdetail['post_content'], $excerpt_length, '<a href="'. get_permalink( $post_id ) .'"> ...Read More</a>' );
+            $excerpt = wp_trim_words( $postdetail['post_content'], $excerpt_length, '... <a href="'. get_permalink( $post_id ) .'">Read More</a>' );
         }
 
         $post_list[$prefix] = array( 
@@ -396,6 +410,69 @@ function get_most_recent_post( $site_id ) {
     restore_current_blog();
     
     return $recent_post_data;
+
+}
+
+
+
+// Input: $sites and $taxonomy
+// Output: new array with unique taxonomy term slugs and names
+
+function get_sitewide_taxonomy_terms( $taxonomy, $exclude_sites = null ) {
+
+    // Site statuses to include
+    $siteargs = array( 
+        'limit'      => null,
+        'public'     => 1,
+        'archived'   => 0,
+        'spam'       => 0,
+        'deleted'    => 0,
+        'mature'     => null,
+    );
+
+    // Allow the $siteargs to be  changed
+    if( has_filter( 'anp_network_tax_term_siteargs_arguments' ) ) {
+        $siteargs = apply_filters( 'anp_network_tax_term_siteargs_arguments', $siteargs );
+    }
+
+    $sites_list = ( $exclude_sites ) ? exclude_sites( $exclude_sites ) : wp_get_sites( $siteargs );
+
+    $termargs = array();
+
+    // Allow the $siteargs to be  changed
+    if( has_filter( 'anp_network_tax_termarg_arguments' ) ) {
+        $termargs = apply_filters( 'anp_network_tax_termarg_arguments', $termargs );
+    }
+
+    $term_list = array();
+
+    foreach( $sites_list as $site ) {
+
+        $site_id = $site['blog_id'];
+
+        // Switch to the site to get details and posts
+        switch_to_blog( $site_id );
+
+        $site_terms = get_terms( $taxonomy, $termargs );
+
+        foreach( $site_terms as $term ) {
+
+            if( !in_array( $term->slug, $term_list ) ) {
+
+                $term_list[$term->slug] = $term->name;
+
+            }
+
+        }
+
+        // Unswitch the site
+        restore_current_blog();
+
+    }
+
+    $term_list = array_unique( $term_list );
+
+    return $term_list;
 
 }
 

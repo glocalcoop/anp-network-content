@@ -20,27 +20,44 @@ function render_html( $posts_array, $options_array ) {
     $posts_array = $posts_array;
     $settings = $options_array;
 
+    echo '<pre>$posts_array ';
+    var_dump( $posts_array ) ;
+    echo '</pre>';
+
+    // echo '<pre>$options ';
+    // var_dump( $settings ) ;
+    // echo '</pre>';
+
     // Make each parameter as its own variable
     extract( $settings, EXTR_SKIP );
 
     if( 'event' === $post_type ) {
 
-        switch ( $style ) {
+        if( isset( $style ) && $style ) {
 
-            case 'block':
-                //CALL RENDER BLOCK HTML FUNCTION
-                $rendered_html = render_block_html( $posts_array, $settings );
-                break;
-            
-            default:
-                //CALL RENDER LIST HTML FUNCTION
-                $rendered_html = render_list_html( $posts_array, $settings );
-                break;
+            $rendered_html = render_block_html( $posts_array, $settings );
+
+        } else {
+
+            $rendered_html = render_list_html( $posts_array, $settings );
         }
+
+        // switch ( isset( $style ) && $style ) {
+
+        //     case 'block':
+        //         //CALL RENDER BLOCK HTML FUNCTION
+        //         $rendered_html = render_block_html( $posts_array, $settings );
+        //         break;
+            
+        //     default:
+        //         //CALL RENDER LIST HTML FUNCTION
+                
+        //         break;
+        // }
 
     } elseif( 'post' === $post_type ) {
 
-        switch ( $style ) {
+        switch ( isset( $style ) && $style ) {
             case 'highlights':
                 //CALL RENDER HIGHLIGHTS HTML FUNCTION
                 $rendered_html = render_highlights_html( $posts_array, $settings );
@@ -77,7 +94,7 @@ function render_list_html( $posts_array, $options_array ) {
     $show_excerpt = ( filter_var( $show_excerpt, FILTER_VALIDATE_BOOLEAN ));
     $show_site_name = ( filter_var( $show_site_name, FILTER_VALIDATE_BOOLEAN ));
     
-    $html = '<ul class="network-posts-list ' . $style . '-list">';
+    $html = ( isset( $style ) ) ? '<ul class="network-posts-list ' . $style . '-list">' : '<ul class="network-posts-list post-list">';
 
     foreach( $posts_array as $post => $post_detail ) {
 

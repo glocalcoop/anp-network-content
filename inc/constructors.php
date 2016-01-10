@@ -73,41 +73,61 @@ function glocal_networkwide_posts_module( $parameters = [] ) {
         'excerpt_length' => (int) 55, // (int)
         'show_site_name' => (bool) True, // (bool)
         'event_scope' => (string) 'future', // (string) - future, past, all
-        'include_event_categories' => array( 'action' ), // (array) - event-category (term name) to include
+        'include_event_categories' => array(), // (array) - event-category (term name) to include
         'include_event_tags' => array(), // (array) - event-tag (term name) to include
     );
 
-    // echo '<pre>glocal_networkwide_posts_module $settings ';
-    // var_dump( $defaults );
-    // echo '</pre>';    
+    // SANITIZE INPUT
+    $parameters = sanitize_input( $parameters );
+
+    if( isset( $parameters['exclude_sites'] ) && !empty( $parameters['exclude_sites'] ) ) {
+
+        $parameters['exclude_sites'] = explode( ',', $parameters['exclude_sites'] );
+
+    }
+
+    if( isset( $parameters['include_event_categories'] ) && !empty( $parameters['include_event_categories'] ) ) {
+
+        $parameters['include_event_categories'] = explode( ',', $parameters['include_event_categories'] );
+
+    }
+
+
+    if( isset( $parameters['include_event_tags'] ) && !empty( $parameters['include_event_tags'] ) ) {
+
+        $parameters['include_event_tags'] = explode( ',', $parameters['include_event_tags'] );
+
+    }
+
+    // if() {
+
+    // }
+
+    // if() {
+
+    // }
+
+    // if() {
+
+    // }
 
     // CALL MERGE FUNCTION
     $settings = get_merged_settings( $parameters, $defaults );
 
     // Extract each parameter as its own variable
     extract( $settings, EXTR_SKIP );
-       
-    // Get a list of sites
-    $siteargs = array( 
-        'archived'   => 0,
-        'spam'       => 0,
-        'deleted'    => 0,
-        'public'     => 1
-    );
 
-    $sites = wp_get_sites( $siteargs );
+    // CALL SITES FUNCTION
+    $sites_list = get_sites_list( $settings );
 
-    // Allow the $siteargs to be changed
-    if( has_filter( 'anp_network_posts_site_arguments' ) ) {
-        $sites = apply_filters( 'anp_network_posts_site_arguments', $sites );
-    }
 
-    // CALL EXCLUDE SITES FUNCTION
-    $sites_list = ( isset( $exclude_sites ) ) ? exclude_sites( $exclude_sites, $sites ) : $sites;
-    
     // CALL GET POSTS FUNCTION
     $posts_list = get_posts_list( $sites_list, $settings );
     
+    echo '<pre>$settings  ';
+    var_dump( $settings  ) ;
+    echo '</pre>';
+
     if( $output == 'array' ) {
         
         // Return an array
@@ -149,7 +169,7 @@ function glocal_networkwide_sites_module( $parameters = [] ) {
     /** Default parameters **/
     $defaults = array( 
         'return' => (string)'display',
-        'number_sites' => (int) 0,
+        'number_sites' => (int) null,
         'exclude_sites' => array( 
             (int) 1
         ), 
@@ -174,15 +194,15 @@ function glocal_networkwide_sites_module( $parameters = [] ) {
     switch ( $sort_by ) {
         case 'newest':
             $sites_list = sort_array_by_key( $sites_list, 'registered', 'DESC' );
-        break;
+            break;
         
         case 'updated':
             $sites_list = sort_array_by_key( $sites_list, 'last_updated', 'DESC' );
-        break;
+            break;
         
         case 'active':
             $sites_list = sort_array_by_key( $sites_list, 'post_count', 'DESC' );
-        break;
+            break;
         
         default:
             $sites_list = sort_array_by_key( $sites_list, 'blogname' );
