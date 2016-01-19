@@ -13,37 +13,42 @@
 
 /************* NETWORK POSTS MAIN FUNCTION *****************/
 
-/************* Parameters *****************
-    @number_posts - the total number of posts to display (default: 10)
-    @posts_per_site - the number of posts for each site (default: no limit)
-    @include_categories - the categories of posts to include (default: all categories)
-    @exclude_sites - the site from which posts should be excluded (default: all sites (public sites, except archived, deleted and spam))
-    @output - HTML or array (default: HTML)
-    @style - normal (list), block or highlights (default: normal) - ignored if @output is 'array'
-    @ignore_styles - don't use plugin stylesheet (default: false) - ignored if @output is 'array'
-    @id - ID used in list markup (default: network-posts-RAND) - ignored if @output is 'array'
-    @class - class used in list markup (default: post-list) - ignored if @output is 'array'
-    @title - title displayed for list (default: Posts) - ignored unless @style is 'highlights'
-    @title_image - image displayed behind title (default: home-highlight.png) - ignored unless @style is 'highlights'
-    @show_thumbnail - display post thumbnail (default: False) - ignored if @output is 'array'
-    @show_meta - if meta info should be displayed (default: True) - ignored if @output is 'array'
-    @show_excerpt - if excerpt should be displayed (default: True) - ignored if @output is 'array' or if @show_meta is False
-    @excerpt_length - number of words to display for excerpt (default: 50) - ignored if @show_excerpt is False
-    @show_site_name - if site name should be displayed (default: True) - ignored if @output is 'array'
-    
-    Editable Templates
-    ---
-    Display of Network Content can be customized by adding a custom template to your theme
-    plugins/glocal-network-content/
-        anp-post-list-template.php
-        anp-post-block-template.php
-        anp-post-highlights-template.php
-        anp-sites-list-template.php
-*/
+/**
+ * Instantiation method
+ * http://stackoverflow.com/questions/2396415/what-does-new-self-mean-in-php
+ *
+ * @number_posts - the total number of posts to display (default: 10)
+ * @posts_per_site - the number of posts for each site (default: no limit)
+ * @include_categories - the categories of posts to include (default: all categories)
+ * @exclude_sites - the site from which posts should be excluded (default: all sites (public sites, except archived, deleted and spam))
+ * @output - HTML or array (default: HTML)
+ * @style - normal (list), block or highlights (default: normal) - ignored if @output is 'array'
+ * @ignore_styles - don't use plugin stylesheet (default: false) - ignored if @output is 'array'
+ * @id - ID used in list markup (default: network-posts-RAND) - ignored if @output is 'array'
+ * @class - class used in list markup (default: post-list) - ignored if @output is 'array'
+ * @title - title displayed for list (default: Posts) - ignored unless @style is 'highlights'
+ * @title_image - image displayed behind title (default: home-highlight.png) - ignored unless @style is 'highlights'
+ * @show_thumbnail - display post thumbnail (default: False) - ignored if @output is 'array'
+ * @show_meta - if meta info should be displayed (default: True) - ignored if @output is 'array'
+ * @show_excerpt - if excerpt should be displayed (default: True) - ignored if @output is 'array' or if @show_meta is False
+ * @excerpt_length - number of words to display for excerpt (default: 50) - ignored if @show_excerpt is False
+ * @show_site_name - if site name should be displayed (default: True) - ignored if @output is 'array'
+ * @param show_site_name - if site name should be displayed (default: True) - ignored if @output is 'array'
+ *     
+ * Editable Templates
+ * ---
+ * Display of Network Content can be customized by adding a custom template to your theme
+ * plugins/glocal-network-content/
+ * - anp-post-list-template.php
+ * - anp-post-block-template.php
+ * - anp-post-highlights-template.php
+ * - anp-sites-list-template.php
+ */
 
-
-// Input: user-selected options array
-// Output: list of posts from all sites, rendered as HTML or returned as array
+/**
+ * @param @var array user-selected options
+ * @return @var list of posts, as array or rendered as HTML
+ */
 function glocal_networkwide_posts_module( $parameters = [], $site_args = [] ) {
 
     // Default parameters
@@ -65,6 +70,8 @@ function glocal_networkwide_posts_module( $parameters = [], $site_args = [] ) {
         'show_excerpt'          => True,
         'excerpt_length'        => 55,
         'show_site_name'        => True,
+        'event_tags'            => null,
+        'event_categories'      => null,
     );
 
     // Get a list of sites
@@ -129,9 +136,11 @@ function glocal_networkwide_posts_module( $parameters = [], $site_args = [] ) {
     @join_text - Future
 */
 
-// Input: user-selected options array
-// Output: list of sites, rendered as HTML or returned as array
-function glocal_networkwide_sites_module($parameters = []) {
+/**
+ * @param @var array user-selected options
+ * @return @var list of sites, as array or rendered as HTML
+ */
+function glocal_networkwide_sites_module( $parameters = [], $site_args = [] ) {
 
     /** Default parameters **/
     $defaults = array(
@@ -145,36 +154,46 @@ function glocal_networkwide_sites_module($parameters = []) {
         'id' => 'network-sites-' . rand(),
         'class' => 'network-sites-list',
     );
+
+    // Get a list of sites
+    $default_site_args = array(
+        'archived'   => 0,
+        'spam'       => 0,
+        'deleted'    => 0,
+        'public'     => 1
+    );
     
     // CALL MERGE FUNCTION
-    $settings = get_merged_settings($parameters, $defaults);
+    $settings = get_merged_settings( $parameters, $defaults );
+
+    $site_args = get_merged_settings( $site_args, $default_site_args );
 
     // Extract each parameter as its own variable
     extract( $settings, EXTR_SKIP );
     
     // CALL GET SITES FUNCTION
-    $sites_list = get_sites_list($settings);
+    $sites_list = get_sites_list( $settings, $site_args );
     
     // Sorting
     switch ($sort_by) {
         case 'newest':
-            $sites_list = sort_array_by_key($sites_list, 'registered', 'DESC');
+            $sites_list = sort_array_by_key( $sites_list, 'registered', 'DESC');
         break;
         
         case 'updated':
-            $sites_list = sort_array_by_key($sites_list, 'last_updated', 'DESC');
+            $sites_list = sort_array_by_key( $sites_list, 'last_updated', 'DESC');
         break;
         
         case 'active':
-            $sites_list = sort_array_by_key($sites_list, 'post_count', 'DESC');
+            $sites_list = sort_array_by_key( $sites_list, 'post_count', 'DESC');
         break;
         
         default:
-            $sites_list = sort_array_by_key($sites_list, 'blogname');
+            $sites_list = sort_array_by_key( $sites_list, 'blogname' );
         
     }
         
-    if($return == 'array') {
+    if( 'array' == $return ) {
         
         return $sites_list;
         
@@ -183,7 +202,7 @@ function glocal_networkwide_sites_module($parameters = []) {
         
     // CALL RENDER FUNCTION
     
-        return render_sites_list($sites_list, $settings);
+        return render_sites_list( $sites_list, $settings );
         
     }
     
