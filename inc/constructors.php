@@ -44,53 +44,56 @@
 
 // Input: user-selected options array
 // Output: list of posts from all sites, rendered as HTML or returned as array
-function glocal_networkwide_posts_module($parameters = []) {
+function glocal_networkwide_posts_module( $parameters = [], $site_args = [] ) {
 
     // Default parameters
     // There aren't any now, but there might be some day.
     $defaults = array(
-        'number_posts' => 10, //
-        'exclude_sites' => null, 
-        'include_categories' => null,
-        'posts_per_site' => null,
-        'output' => 'html',
-        'style' => 'normal',
-        'id' => 'network-posts-' . rand(),
-        'class' => 'post-list',
-        'title' => 'Posts',
-        'title_image' => null,
-        'show_thumbnail' => False,
-        'show_meta' => True,
-        'show_excerpt' => True,
-        'excerpt_length' => 55,
-        'show_site_name' => True,
+        'post_type'             => 'post',
+        'number_posts'          => 10, //
+        'exclude_sites'         => null, 
+        'include_categories'    => null,
+        'posts_per_site'        => null,
+        'output'                => 'html',
+        'style'                 => 'normal',
+        // 'id'                    => 'network-posts-' . rand(),
+        'class'                 => 'post-list',
+        'title'                 => 'Posts',
+        'title_image'           => null,
+        'show_thumbnail'        => False,
+        'show_meta'             => True,
+        'show_excerpt'          => True,
+        'excerpt_length'        => 55,
+        'show_site_name'        => True,
+    );
+
+    // Get a list of sites
+    $default_site_args = array(
+        'archived'   => 0,
+        'spam'       => 0,
+        'deleted'    => 0,
+        'public'     => 1
     );
     
     // CALL MERGE FUNCTION
-    $settings = get_merged_settings($parameters, $defaults);
+    $settings = get_merged_settings( $parameters, $defaults );
+    $site_args = get_merged_settings( $site_args, $default_site_args );
 
     // Extract each parameter as its own variable
     extract( $settings, EXTR_SKIP );
     
     $exclude = $exclude_sites;
     // Strip out all characters except numbers and commas. This is working!
-    $exclude = preg_replace("/[^0-9,]/", "", $exclude);
-    $exclude = explode(",", $exclude);
+    $exclude = preg_replace( "/[^0-9,]/", "", $exclude );
+    $exclude = explode( ",", $exclude );
        
-    // Get a list of sites
-    $siteargs = array(
-        'archived'   => 0,
-        'spam'       => 0,
-        'deleted'    => 0,
-        'public'     => 1
-    );
-    $sites = wp_get_sites($siteargs);
+    $sites = wp_get_sites( $site_args );
 
     // CALL EXCLUDE SITES FUNCTION
-    $sites_list = exclude_sites($exclude, $sites);
+    $sites_list = exclude_sites( $exclude, $sites );
     
     // CALL GET POSTS FUNCTION
-    $posts_list = get_posts_list($sites_list, $settings);  
+    $posts_list = get_posts_list( $sites_list, $settings );  
     
     if($output == 'array') {
         
