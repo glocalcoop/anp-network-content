@@ -37,10 +37,15 @@ if ( !defined( 'ANP_NETWORK_CONTENT_PLUGIN_URL' ) ) {
     define( 'ANP_NETWORK_CONTENT_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 }
 
+if ( !defined( 'ANP_NETWORK_CONTENT_TEXT_DOMAIN' ) ) {
+    define( 'ANP_NETWORK_CONTENT_TEXT_DOMAIN', 'anp-network-content' );
+}
+
 include_once( ANP_NETWORK_CONTENT_PLUGIN_DIR . 'inc/constructors.php' );
 include_once( ANP_NETWORK_CONTENT_PLUGIN_DIR . 'inc/get-content.php' );
 include_once( ANP_NETWORK_CONTENT_PLUGIN_DIR . 'inc/helpers.php' );
 include_once( ANP_NETWORK_CONTENT_PLUGIN_DIR . 'inc/render.php' );
+include_once( ANP_NETWORK_CONTENT_PLUGIN_DIR . 'inc/filter.php' );
 include_once( ANP_NETWORK_CONTENT_PLUGIN_DIR . 'inc/shortcodes.php' );
 include_once( ANP_NETWORK_CONTENT_PLUGIN_DIR . 'inc/enqueue.php' );
 
