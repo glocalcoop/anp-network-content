@@ -15,7 +15,7 @@
 
 // Input: array of user inputs and array of default values
 // Output: merged array of $settings
-function get_merged_settings($user_selections_array, $default_values_array) {
+function get_merged_settings( $user_selections_array, $default_values_array ) {
 
     $parameters = $user_selections_array;
     $defaults = $default_values_array;
@@ -24,19 +24,28 @@ function get_merged_settings($user_selections_array, $default_values_array) {
     // Parse & merge parameters with the defaults - http://codex.wordpress.org/Function_Reference/wp_parse_args
     $settings = wp_parse_args( $parameters, $defaults );
 
-    // Strip out tags
-    foreach($settings as $parameter => $value) {
-        // Strip everything
-        $settings[$parameter] = strip_tags($value);
+    //Strip out tags
+    foreach( $settings as $parameter => $value ) {
+
+        if( 'array' == gettype( $value ) ) {
+
+            array_map( 'strip_tags', $value );
+
+        } else {
+
+           $settings[$parameter] = strip_tags( $value ); 
+
+        }
+        
     }
-    
+
     return $settings;
 
 }
 
 // Input: parameters array
 // Output: array of sites with site information
-function get_sites_list($options_array) {
+function get_sites_list( $options_array, $site_args ) {
 
     $settings = $options_array;
     
@@ -46,28 +55,21 @@ function get_sites_list($options_array) {
     // Turn exclude setting into array
     $exclude = $exclude_sites;
     // Strip out all characters except numbers and commas. This is working!
-    $exclude = preg_replace("/[^0-9,]/", "", $exclude);
+    $exclude = preg_replace( "/[^0-9,]/", "", $exclude );
     // Convert string to array
-    $exclude = explode(",", $exclude);
-        
-    $siteargs = array(
-        'limit'      => $number_sites,
-        'archived'   => 0,
-        'spam'       => 0,
-        'deleted'    => 0,
-    );
+    $exclude = explode( ",", $exclude );
     
-    $sites = wp_get_sites($siteargs);
+    $sites = wp_get_sites( $site_args );
     
     // CALL EXCLUDE SITES FUNCTION
-    $sites = exclude_sites($exclude, $sites);
+    $sites = exclude_sites( $exclude, $sites );
     
     $site_list = array();
     
-    foreach($sites as $site) {
+    foreach( $sites as $site ) {
         
         $site_id = $site['blog_id'];
-        $site_details = get_blog_details($site_id);
+        $site_details = get_blog_details( $site_id );
         
         $site_list[$site_id] = array(
             'blog_id' => $site_id,  // Put site ID into array
@@ -83,10 +85,10 @@ function get_sites_list($options_array) {
         // CALL GET SITE IMAGE FUNCTION
         $site_image = get_site_header_image($site_id);
         
-        if($site_image) {
+        if( $site_image ) {
             $site_list[$site_id]['site-image'] = $site_image;
         }
-        elseif($default_image) {
+        elseif( $default_image ) {
             $site_list[$site_id]['site-image'] = $default_image;
         }
         else {
@@ -103,66 +105,72 @@ function get_sites_list($options_array) {
 
 // Inputs: exclude array and sites array
 // Output: array of sites, excluding those specfied in parameters
-function exclude_sites($exclude_array, $sites_array) {
+function exclude_sites( $exclude_array, $sites_array ) {
 
     $exclude = $exclude_array;
     $sites = $sites_array;
 
-    $exclude_length = sizeof($exclude);
-    $sites_length = sizeof($sites);
+    $exclude_length = sizeof( $exclude );
+    $sites_length = sizeof( $sites );
+
+    echo $exclude_length;
     
     // If there are any sites to exclude, remove them from the array of sites
-    if($exclude_length) {
+    if( $exclude_length > 0 ) {
 
-        for($i = 0; $i < $exclude_length; $i++) {
+        for( $i = 0; $i < $exclude_length; $i++ ) {
 
-            for($j = 0; $j < $sites_length; $j++) {
+            for( $j = 0; $j < $sites_length; $j++ ) {
 
-                if($sites[$j]['blog_id'] == $exclude[$i]) {
+                if( $sites[$j]['blog_id'] == $exclude[$i] ) {
                     // Remove the site from the list
-                    unset($sites[$j]);
+                    unset( $sites[$j] );
                 }
 
             }
         }
 
         // Fix the array indexes so they're in order again
-        $sites = array_values($sites);
+        $sites = array_values( $sites );
 
         return $sites;
 
     }
 
+    return $sites;
+
 }
 
 // Inputs: array of sites and parameters array
 // Output: single array of posts with site information, sorted by post_date
-function get_posts_list($sites_array, $options_array) {
+function get_posts_list( $sites_array, $post_args, $render_options ) {
 
     $sites = $sites_array;
-    $settings = $options_array;
+    $post_args = $post_args;
+    $render_options = $render_options;
 
     // Make each parameter as its own variable
-    extract( $settings, EXTR_SKIP );
+    extract( $post_args, EXTR_SKIP );
+    extract( $render_options, EXTR_SKIP );
 
-    $post_list = array();
+    $post_list = [];
 
     // For each site, get the posts
-    foreach($sites as $site => $detail) {
+    foreach( $sites as $site => $detail ) {
 
         $site_id = $detail['blog_id'];
-        $site_details = get_blog_details($site_id);
+        $site_details = get_blog_details( $site_id );
 
         // Switch to the site to get details and posts
-        switch_to_blog($site_id);
+        switch_to_blog( $site_id );
         
         // CALL GET SITE'S POST FUNCTION
         // And add to array of posts
         
         // If get_sites_posts($site_id, $settings) isn't null, add it to the array, else skip it
         // Trying to add a null value to the array using this syntax produces a fatal error. 
-        if( get_sites_posts($site_id, $settings) ) { 
-            $post_list = $post_list + get_sites_posts($site_id, $settings);
+        if( get_sites_posts( $site_id, $post_args ) ) { 
+            $post_list = $post_list + get_sites_posts( $site_id, $post_args );
         }
         
         // Unswitch the site
@@ -170,40 +178,28 @@ function get_posts_list($sites_array, $options_array) {
 
     }
 
-    // CALL SORT FUNCTION
-    $post_list = sort_by_date($post_list);
-    
-    // CALL LIMIT FUNCTIONS
-    $post_list = limit_number_posts($post_list, $number_posts);
-
     return $post_list;
 
 }
 
 // Input: site id and parameters array
 // Ouput: array of posts for site
-function get_sites_posts($site_id, $options_array) {
+function get_sites_posts( $site_id, $post_args ) {
     
     $site_id = $site_id;
-    $settings = $options_array;
+    $post_args = $post_args;
 
     // Make each parameter as its own variable
-    extract( $settings, EXTR_SKIP );
+    extract( $post_args, EXTR_SKIP );
     
-    $site_details = get_blog_details($site_id);
+    $site_details = get_blog_details( $site_id );
     
-    $post_args = array(
-        'posts_per_page' => $posts_per_site,
-        'category_name' => $include_categories
-    );
+    $recent_posts = wp_get_recent_posts( $post_args );
     
-    
-    $recent_posts = wp_get_recent_posts($post_args);
-    
-    //$post_list = array();
+    $post_list = [];
 
     // Put all the posts in a single array
-    foreach($recent_posts as $post => $postdetail) {
+    foreach( $recent_posts as $post => $postdetail ) {
 
         //global $post;
         
@@ -218,31 +214,40 @@ function get_sites_posts($site_id, $options_array) {
         //Returns an array
         $post_thumbnail = wp_get_attachment_image_src( get_post_thumbnail_id( $post_id ), 'thumbnail' );
 
-        if($postdetail['post_excerpt']) {
-            $excerpt = $postdetail['post_excerpt'];
-        } else {
-            $excerpt = wp_trim_words( $postdetail['post_content'], $excerpt_length, '<a href="'. get_permalink($post_id) .'"> ...Read More</a>' );
-        }
-
         $post_list[$prefix] = array(
             'post_id' => $post_id,
             'post_title' => $postdetail['post_title'],
+            'post_slug' => $postdetail['post_name'],
             'post_date' => $postdetail['post_date'],
             'post_author' => get_the_author_meta( 'display_name', $postdetail['post_author'] ),
             'post_content' => $postdetail['post_content'],
-            'post_excerpt' => strip_shortcodes( $excerpt ),
+            'post_excerpt' => ( $postdetail['post_excerpt'] ) ? strip_shortcodes( $postdetail['post_excerpt'] ) : null,
             'permalink' => get_permalink($post_id),
             'post_image' => $post_thumbnail[0],
             'post_class' => $post_markup_class,
+            'post_type' => $postdetail['post_type'],
             'site_id' => $site_id,
             'site_name' => $site_details->blogname,
             'site_link' => $site_details->siteurl,
         );
 
-        //Get post categories
-        $post_categories = wp_get_post_categories($post_id);
+        if( 'event' == $postdetail['post_type'] && function_exists( 'eo_get_venue' ) ) {
 
-        foreach($post_categories as $post_category) {
+            $venue_id = eo_get_venue( $post_id );
+
+            $post_list[$prefix]['start_date'] = get_post_meta( $post_id, '_eventorganiser_schedule_start_start', true );
+            $post_list[$prefix]['end_date'] = get_post_meta( $post_id, '_eventorganiser_schedule_start_finish', true );
+            $post_list[$prefix]['venue_name'] = eo_get_venue_name( $venue_id );
+            $post_list[$prefix]['venue_address'] = eo_get_venue_address( $venue_id );
+            $post_list[$prefix]['venue_lat_long'] = eo_get_venue_latlng( $venue_id );
+                
+        }
+
+
+        //Get post categories
+        $post_categories = wp_get_post_categories( $post_id );
+
+        foreach( $post_categories as $post_category ) {
             $cat = get_category($post_category);
             $post_list[$prefix]['categories'][] = $cat->name;
         }
@@ -263,10 +268,10 @@ function get_most_recent_post($site_id) {
     switch_to_blog( $site_id );
 
     // Get most recent post
-    $recent_posts = wp_get_recent_posts('numberposts=1');
+    $recent_posts = wp_get_recent_posts( 'numberposts=1' );
     
     // Get most recent post info
-    foreach($recent_posts as $post) {
+    foreach( $recent_posts as $post ) {
         $post_id = $post['ID'];
 
         // Post into $site_list array
