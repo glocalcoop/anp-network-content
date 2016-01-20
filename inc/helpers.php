@@ -107,6 +107,29 @@ function custom_post_excerpt($post_id, $length='55', $trailer=' ...') {
     return $the_excerpt;
 }
 
+
+/**
+ * Truncate post_content
+ * @param $var string $post_content
+ * @return cleaned up excerpt text
+ */
+function truncate_post_content( $post_content, $permalink, $length='55', $trailer=' ...' ) {
+
+        $the_excerpt = $post_content; //Gets post_content to be used as a basis for the excerpt
+        $excerpt_length = $length; //Sets excerpt length by word count
+        $the_excerpt = strip_tags( strip_shortcodes( $the_excerpt ) ); //Strips tags and images
+        $words = explode( ' ', $the_excerpt, $excerpt_length + 1 );
+
+        if( count( $words ) > $excerpt_length ) :
+            array_pop($words);
+            $trailer = '<a href="' . esc_url( $permalink ) . '">' . $trailer . '</a>';
+            array_push( $words, $trailer );
+            $the_excerpt = implode( ' ', $words );
+        endif;
+    
+    return $the_excerpt;
+}
+
 // Input: array of posts and max number parameter
 // Output: array of posts reduced to max number
 function limit_number_posts($posts_array, $max_number) {
@@ -167,4 +190,23 @@ function get_site_header_image($site_id) {
     switch_to_blog($current_blog_id);
 
     return $site_image->thumbnail_url;
+}
+
+/**
+ * @var string or array
+ * @return @var bool - true if not empty or null
+ */
+
+function is_not_empty_or_null( $var ) {
+
+    if( is_array( $var ) ) {
+
+        return !empty( $var[0] );
+
+    } else {
+
+        return ( '' !== $var ) && ( !is_null( $var ) );
+
+    }
+
 }
