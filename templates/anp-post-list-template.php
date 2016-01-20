@@ -2,9 +2,9 @@
 /*
 * Template for the output of the Network Posts List
 * Override by placing a file called plugins/glocal-network-content/anp-post-list-template.php in your active theme
-*/ 
+*/
 
-$html .= '<li class="type-post list-item siteid-' . $post_detail['site_id'] . '">';
+$html .= '<li class="post list-item siteid-' . $post_detail['site_id'] . '">';
 if($show_thumbnail && $post_detail['post_image']) {
 	//Show image
 	$html .= '<a href="' . esc_url( $post_detail['permalink'] ) . '" class="post-thumbnail">';
