@@ -15,7 +15,7 @@
 
 // Input: array of posts and parameters
 // Output: rendered as 'normal' or 'highlight' HTML
-function render_html($posts_array, $options_array) {
+function render_html( $posts_array, $options_array, $post_type = 'post' ) {
     
     $posts_array = $posts_array;
     $settings = $options_array;
@@ -26,17 +26,17 @@ function render_html($posts_array, $options_array) {
     switch ( $style ) {
         case 'highlights':
             //CALL RENDER HIGHLIGHTS HTML FUNCTION
-            $rendered_html = render_highlights_html($posts_array, $settings);
+            $rendered_html = render_highlights_html( $posts_array, $settings );
             break;
 
         case 'block':
             //CALL RENDER BLOCK HTML FUNCTION
-            $rendered_html = render_block_html($posts_array, $settings);
+            $rendered_html = render_block_html( $posts_array, $settings, $post_type );
             break;
         
         default:
             //CALL RENDER LIST HTML FUNCTION
-            $rendered_html = render_list_html($posts_array, $settings);
+            $rendered_html = render_list_html( $posts_array, $settings, $post_type );
             break;
     }
     
@@ -45,11 +45,11 @@ function render_html($posts_array, $options_array) {
 
 // Input: array of post data
 // Output: HTML list of posts
-function render_list_html($posts_array, $options_array) {
+function render_list_html( $posts_array, $options_array, $post_type = 'post' ) {
 
     $posts_array = $posts_array;
     $settings = $options_array;
-    
+
     // Make each parameter as its own variable
     extract( $settings, EXTR_SKIP );
     
@@ -58,9 +58,9 @@ function render_list_html($posts_array, $options_array) {
     $show_excerpt = (filter_var($show_excerpt, FILTER_VALIDATE_BOOLEAN));
     $show_site_name = (filter_var($show_site_name, FILTER_VALIDATE_BOOLEAN));
     
-    $html = '<ul class="network-posts-list ' . $style . '-list">';
+    $html = '<ul class="network-' . $post_type . '-list ' . $style . '-list">';
 
-    foreach($posts_array as $post => $post_detail) {
+    foreach( $posts_array as $post => $post_detail ) {
 
         global $post;
         
@@ -69,13 +69,27 @@ function render_list_html($posts_array, $options_array) {
         if( isset( $post_detail['categories'] ) ) {
             $post_categories = implode(", ", $post_detail['categories']);
         }
+
+        if( 'event' == $post_type ) {
+
+            // use a template for the output so that it can easily be overridden by theme
+            // check for template in active theme
+            $template = locate_template( array( ANP_NETWORK_CONTENT_PLUGIN_DIR . 'anp-event-list-template.php' ));
+            
+            // if none found use the default template
+            $template = ( '' !== $template ) ? $template : ANP_NETWORK_CONTENT_PLUGIN_DIR . 'templates/anp-event-list-template.php';
+
+        } else {
+
+            // use a template for the output so that it can easily be overridden by theme
+            // check for template in active theme
+            $template = locate_template( array( ANP_NETWORK_CONTENT_PLUGIN_DIR . 'anp-post-list-template.php' ));
+            
+            // if none found use the default template
+            $template = ( '' !== $template ) ? $template : ANP_NETWORK_CONTENT_PLUGIN_DIR . 'templates/anp-post-list-template.php';
+
+        }
         
-        // use a template for the output so that it can easily be overridden by theme
-        // check for template in active theme
-        $template = locate_template(array( ANP_NETWORK_CONTENT_PLUGIN_DIR . 'anp-post-list-template.php'));
-        
-        // if none found use the default template
-        if ( $template == '' ) $template = ANP_NETWORK_CONTENT_PLUGIN_DIR . 'templates/anp-post-list-template.php';
         
         include ( $template ); 
 
@@ -89,7 +103,7 @@ function render_list_html($posts_array, $options_array) {
 
 // Input: array of post data
 // Output: HTML list of posts
-function render_block_html($posts_array, $options_array) {
+function render_block_html($posts_array, $options_array, $post_type = 'post') {
 
     $posts_array = $posts_array;
     $settings = $options_array;
@@ -97,9 +111,9 @@ function render_block_html($posts_array, $options_array) {
     // Make each parameter as its own variable
     extract( $settings, EXTR_SKIP );
         
-    $html = '<div class="network-posts-list style-' . $style . '">';
+    $html = '<div class="network-' . $post_type . '-list style-' . $style . '">';
 
-    foreach($posts_array as $post => $post_detail) {
+    foreach( $posts_array as $post => $post_detail ) {
 
         global $post;
         
@@ -110,13 +124,27 @@ function render_block_html($posts_array, $options_array) {
         $show_meta = (filter_var($show_meta, FILTER_VALIDATE_BOOLEAN));
         $show_thumbnail = (filter_var($show_excerpt, FILTER_VALIDATE_BOOLEAN));
         $show_site_name = (filter_var($show_site_name, FILTER_VALIDATE_BOOLEAN));
+
+        if( 'event' == $post_type ) {
+
+            // use a template for the output so that it can easily be overridden by theme
+            // check for template in active theme
+            $template = locate_template( array( ANP_NETWORK_CONTENT_PLUGIN_DIR . 'anp-event-block-template.php' ));
+            
+            // if none found use the default template
+            $template = ( '' !== $template ) ? $template : ANP_NETWORK_CONTENT_PLUGIN_DIR . 'templates/anp-event-block-template.php';
+
+        } else {
+
+            // use a template for the output so that it can easily be overridden by theme
+            // check for template in active theme
+            $template = locate_template(array( ANP_NETWORK_CONTENT_PLUGIN_DIR . 'glocal-network-contentanp-post-block-template.php') );
+            
+            // if none found use the default template
+            $template = ( $template == '' ) ? ANP_NETWORK_CONTENT_PLUGIN_DIR . 'templates/anp-post-block-template.php' : '';
+
+        }
         
-        // use a template for the output so that it can easily be overridden by theme
-        // check for template in active theme
-        $template = locate_template(array( ANP_NETWORK_CONTENT_PLUGIN_DIR . 'glocal-network-contentanp-post-block-template.php') );
-        
-        // if none found use the default template
-        $template = ( $template == '' ) ? ANP_NETWORK_CONTENT_PLUGIN_DIR . 'templates/anp-post-block-template.php' : '';
         
         include ( $template ); 
 
