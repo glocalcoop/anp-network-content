@@ -720,8 +720,6 @@ class ANP_Network_Events_Widget extends WP_Widget {
             echo $before_title . $title . $after_title;
         }
 
-        //var_dump( $instance );
-
         // Use glocal_networkwide_sites function to display sites
         if( function_exists( 'glocal_networkwide_posts_module' ) ) {
 

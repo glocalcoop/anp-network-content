@@ -99,18 +99,6 @@ function glocal_networkwide_posts_module( $parameters = [] ) {
 
     }
 
-    // if() {
-
-    // }
-
-    // if() {
-
-    // }
-
-    // if() {
-
-    // }
-
     // CALL MERGE FUNCTION
     $settings = get_merged_settings( $parameters, $defaults );
 
@@ -124,9 +112,9 @@ function glocal_networkwide_posts_module( $parameters = [] ) {
     // CALL GET POSTS FUNCTION
     $posts_list = get_posts_list( $sites_list, $settings );
     
-    echo '<pre>$settings  ';
-    var_dump( $settings  ) ;
-    echo '</pre>';
+    // echo '<pre>$settings  ';
+    // var_dump( $settings  ) ;
+    // echo '</pre>';
 
     if( $output == 'array' ) {
         

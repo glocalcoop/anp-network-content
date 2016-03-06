@@ -20,9 +20,9 @@ function render_html( $posts_array, $options_array ) {
     $posts_array = $posts_array;
     $settings = $options_array;
 
-    echo '<pre>$posts_array ';
-    var_dump( $posts_array ) ;
-    echo '</pre>';
+    // echo '<pre>$posts_array ';
+    // var_dump( $posts_array ) ;
+    // echo '</pre>';
 
     // echo '<pre>$options ';
     // var_dump( $settings ) ;
