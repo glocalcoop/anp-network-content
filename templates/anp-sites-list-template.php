@@ -5,29 +5,32 @@
 */
 
 
-$html .= '<li id="site-' . $site_id . '" data-posts="' . $site['post_count'] . '" data-slug="' . $slug . '" data-id="' . $site_id . '" data-updated="' . $site['last_updated'] . '">' ;
+$html .= '<li id="site-' . $site_id . '" data-posts="' . $site['post_count'] . '" data-slug="' . $slug . '" data-id="' . $site_id . '" data-updated="' . $site['last_updated'] . '" class="site-item">' ;
 if($show_image) {
 	$html .= '<a href="' . esc_url( $site['siteurl'] ) . '" class="item-image site-image" title="' . $site['blogname'] . '" style="background-image:url(\''. $site['site-image'] .' \')">';
 	$html .= '</a>';
 }
-$html .= '';
-$html .= '<h3 class="site-name">';
+$html .= '<header class="entry-header">';
+$html .= '<h3 class="entry-title">';
 $html .= '<a href="' . esc_url( $site['siteurl'] ) . '">';
 $html .= $site['blogname'];
 $html .= '</a>';
 $html .= '</h3>';
+$html .= '</header>';
 if($show_meta) {
-	$html .= '<div class="meta">';
+	$html .= '<div class="entry-content">';
 
-	$html .= '<time>';
+	$html .= '<span class="meta-label">' . __( 'Last Updated', 'anp-network-content' ) . '</span> <time>';
 	$html .= date_i18n( get_option( 'date_format' ), strtotime( $site['last_updated'] ) );
 	$html .= '</time>';
 
-	$html .= '<div class="recent_post">';
+	$html .= '<div class="recent-post">';
+	$html .= '<span class="meta-label">' . __( 'Last Recent Post', 'anp-network-content' ) . '</span> ';
 	$html .= '<a href="'. esc_url( $site['recent_post']['permalink'] ) .'">';
 	$html .= $site['recent_post']['post_title'];
 	$html .= '</a>';
-	$html .= '<div class="post-meta">';
+	$html .= '<div class="entry-meta">';
+	$html .= '<span class="meta-label">' . __( 'Posted On', 'anp-network-content' ) . '</span> ';
 	$html .= '<time>';
 	$html .= date_i18n( get_option( 'date_format' ), strtotime( $site['recent_post']['post_date'] ) );
 	$html .= '</time>';
