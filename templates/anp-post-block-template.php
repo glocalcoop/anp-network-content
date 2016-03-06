@@ -6,7 +6,7 @@
 
 $html .= '<article id="post-' . $post_id . '" class="post hentry list-item" role="article">';
 
-$html .= '<header class="article-header">';
+$html .= '<header class="entry-header">';
 if($show_thumbnail && $post_detail['post_image']) {
 	//Show image
 	$html .= '<div class="item-image thumbnail">';
@@ -15,25 +15,25 @@ if($show_thumbnail && $post_detail['post_image']) {
 	$html .= '</a>';
 	$html .= '</div>';
 }
-$html .= '<h3 class="post-title">';
+$html .= '<h3 class="entry-title">';
 $html .= '<a href="' . esc_url( $post_detail['permalink'] ) . '">';
 $html .= $post_detail['post_title'];
 $html .= '</a>';
 $html .= '</h3>';
 
 if($show_meta) {
-	$html .= '<div class="meta">';
+	$html .= '<div class="entry-meta">';
 
 	if($show_site_name) {
-		$html .= '<span class="blog-name"><a href="' . esc_url( $post_detail['site_link'] ) . '">';
+		$html .= '<span class="site-name"><span class="meta-label">' . __( 'Posted In', 'anp-network-content' ) . '</span> <a href="' . esc_url( $post_detail['site_link'] ) . '">';
 		$html .= $post_detail['site_name'];
 		$html .= '</a></span>';
 	}
 
-	$html .= '<span class="post-date posted-on date"><time class="entry-date published updated" datetime="' . $post_detail['post_date'] . '">';
+	$html .= '<span class="post-date posted-on date"><span class="meta-label">' . __( 'Posted On', 'anp-network-content' ) . '</span> <time class="entry-date" datetime="' . $post_detail['post_date'] . '">';
 	$html .= date_i18n( get_option( 'date_format' ), strtotime( $post_detail['post_date'] ) );
 	$html .= '</time></span>';
-	$html .= '<span class="post-author author vcard"><a href="' . esc_url( $post_detail['site_link'] . '/author/' . $post_detail['post_author'] ) . '">';
+	$html .= '<span class="entry-author"><span class="label">' . __( 'Posted By', 'anp-network-content' ) . '</span> <a href="' . esc_url( $post_detail['site_link'] . '/author/' . $post_detail['post_author'] ) . '">';
 	$html .= $post_detail['post_author'];
 	$html .= '</a></span>';
 
@@ -41,14 +41,14 @@ if($show_meta) {
 }
 $html .= '</header>';
 
-$html .= '<section class="entry-content">';
-$html .= '<div class="post-excerpt" itemprop="articleBody">' . $post_detail['post_excerpt'] . '</div>';
-$html .= '</section>';
+$html .= '<div class="entry-content">';
+$html .= $post_detail['post_excerpt'];
+$html .= '</div>';
 
 if($show_meta) {
-	$html .= '<footer class="article-footer">';
-	$html .= '<div class="meta">';
-	$html .= '<div class="post-categories cat-links tags">' . $post_categories . '</div>';
+	$html .= '<footer class="entry-footer">';
+	$html .= '<div class="entry-meta"><span class="meta-label">' . __( 'Category', 'anp-network-content' ) . '</span>';
+	$html .= '<div class="category cat-links tags">' . $post_categories . '</div>';
 	$html .= '</div>';
 	$html .= '</footer>';
 }
