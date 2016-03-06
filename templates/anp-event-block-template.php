@@ -11,15 +11,11 @@ $venue_address = $post_detail['event_venue']['venue_location'];
 
 $post_class = ( $post_detail['post_class'] ) ? $post_detail['post_class'] : 'post event event-list hentry list-item';
 
-// echo '<pre>$post_detail ';
-// var_dump( $post_detail );
-// echo '</pre>';
-
 $html .= '<article id="post-' . $post_id . '" class="post ' . $post_class . '" role="article">';
 
-$html .= '<header class="post-header event-header">';
+$html .= '<header class="entry-header">';
 
-$html .= '<h4 class="meta">';
+$html .= '<h4 class="entry-meta event-meta">';
 $html .= '<span class="event-day">';
 $html .= date_i18n( 'l', strtotime( $post_detail['event_start_date'] ) );
 $html .= '</span>';
@@ -37,10 +33,10 @@ $html .= '</span>';
 
 if( $show_meta ) {
 
-	$html .= '<div class="meta event-meta">';
+	$html .= '<div class="entry-meta event-meta">';
 
 	// Need event categories & tags
-	$html .= '<div class="post-categories cat-links tags">' . $post_categories . '</div>';
+	$html .= '<div class="category tags">' . $post_categories . '</div>';
 
 	$html .= '</div>';
 
@@ -48,7 +44,7 @@ if( $show_meta ) {
 
 $html .= '</h4>';
 $html .= '</header>';
-$html .= '<div class="post-body event-content">';
+$html .= '<div class="entry-content event-content">';
 
 if( $show_thumbnail && $post_detail['post_image'] ) {
 	$html .= '<div class="post-image event-image">';
@@ -58,7 +54,7 @@ if( $show_thumbnail && $post_detail['post_image'] ) {
 	$html .= '</div>';
 }
 
-$html .= '<h3 class="post-title event-title">';
+$html .= '<h3 class="entry-title event-title">';
 $html .= '<a href="' . esc_url( $post_detail['permalink'] ) . '" class="post-link">';
 $html .= $post_detail['post_title'];
 $html .= '</a>';
@@ -89,26 +85,25 @@ if( $venue_id ) {
 
 	$html .= '</div>';
 }
-$html .= '<p class="post-excerpt event-description">';
 $html .= '<div class="post-excerpt" itemprop="articleBody">' . $post_detail['post_excerpt'] . '</div>';
-$html .= '</p>';
+
 if( $show_meta ) {
 
-	$html .= '<footer class="article-footer">';
-	$html .= '<div class="meta event-meta">';
+	$html .= '<footer class="entry-footer">';
+	$html .= '<div class="entry-meta event-meta">';
 
 	if( $show_site_name ) {
-		$html .= '<span class="blog-name"><a href="' . esc_url( $post_detail['site_link'] ) . '">';
+		$html .= '<span class="site-name"><a href="' . esc_url( $post_detail['site_link'] ) . '">';
 		$html .= $post_detail['site_name'];
 		$html .= '</a></span>';
 	}
 
-	$html .= '<span class="post-author author vcard"><a href="' . esc_url( $post_detail['site_link'] . '/author/' . $post_detail['post_author'] ) . '">';
+	$html .= '<span class="event-author"><a href="' . esc_url( $post_detail['site_link'] . '/author/' . $post_detail['post_author'] ) . '">';
 	$html .= $post_detail['post_author'];
 	$html .= '</a></span>';
 
 	// Need event categories & tags
-	$html .= '<div class="post-categories cat-links tags">' . $post_categories . '</div>';
+	$html .= '<div class="category tags">' . $post_categories . '</div>';
 
 	$html .= '</div>';
 	$html .= '</footer>';

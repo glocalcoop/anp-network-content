@@ -12,11 +12,11 @@ if($show_thumbnail && $post_detail['post_image']) {
 	$html .= '<img class="attachment-post-thumbnail wp-post-image item-image" src="' . $post_detail['post_image'] . '">';
 	$html .= '</a>';
 }
-$html .= '<h3 class="entry-title">';
+$html .= '<h4 class="entry-title">';
 $html .= '<a href="' . esc_url( $post_detail['permalink'] ) . '">';
 $html .= $post_detail['post_title'];
 $html .= '</a>';
-$html .= '</h3>';
+$html .= '</h4>';
 $html .= '</header>';
 
 if($show_meta) {
