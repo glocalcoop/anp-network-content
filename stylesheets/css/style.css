@@ -16,10 +16,3 @@
   .highlights ul.highlights-list li {
     padding: 8px 24px;
     margin-bottom: 2px; }
-
-.highlights .entry-meta span,
-.widget .entry-meta span {
-  display: inline; }
-  .highlights .entry-meta span:not(:last-child),
-  .widget .entry-meta span:not(:last-child) {
-    padding-right: .25em; }
