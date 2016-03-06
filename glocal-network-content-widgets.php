@@ -31,10 +31,10 @@ class ANP_Network_Sites_Widget extends WP_Widget {
 
         parent::__construct(
             'anp-network-sites',
-            __( 'Network Sites', 'glocal-network-content' ),
+            __( 'Network Sites', 'anp-network-content' ),
             array(
-                'description' => __( 'Display list of sites in your network.', 'glocal-network-content' ),
-                'classname'   => 'widget_glocal_network_sites_widget',
+                'description' => __( 'Display list of sites in your network.', 'anp-network-content' ),
+                'classname'   => 'widget__anp-network-sites',
             )
         );
 
@@ -115,21 +115,21 @@ class ANP_Network_Sites_Widget extends WP_Widget {
 
         // Form fields
         echo '<p>';
-        echo '  <label for="' . $this->get_field_id( 'title' ) . '" class="title_label">' . __( 'Title', 'glocal-network-content' ) . '</label>';
-        echo '  <input type="text" id="' . $this->get_field_id( 'title' ) . '" name="' . $this->get_field_name( 'title' ) . '" class="widefat" placeholder="' . esc_attr__( 'Enter Widget Title', 'glocal-network-content' ) . '" value="' . esc_attr( $title ) . '">';
+        echo '  <label for="' . $this->get_field_id( 'title' ) . '" class="title_label">' . __( 'Title', 'anp-network-content' ) . '</label>';
+        echo '  <input type="text" id="' . $this->get_field_id( 'title' ) . '" name="' . $this->get_field_name( 'title' ) . '" class="widefat" placeholder="' . esc_attr__( 'Enter Widget Title', 'anp-network-content' ) . '" value="' . esc_attr( $title ) . '">';
         echo '</p>';
 
         // Number of Sites
         echo '<p>';
-        echo '  <label for="' . $this->get_field_id( 'number_sites' ) . '" class="number_sites_label">' . __( 'Number of Sites', 'glocal-network-content' ) . '</label>';
-        echo '  <input type="number" id="' . $this->get_field_id( 'number_sites' ) . '" name="' . $this->get_field_name( 'number_sites' ) . '" class="widefat" placeholder="' . esc_attr__( '0-100', 'glocal-network-content' ) . '" value="' . esc_attr( $number_sites ) . '">';
+        echo '  <label for="' . $this->get_field_id( 'number_sites' ) . '" class="number_sites_label">' . __( 'Number of Sites', 'anp-network-content' ) . '</label>';
+        echo '  <input type="number" id="' . $this->get_field_id( 'number_sites' ) . '" name="' . $this->get_field_name( 'number_sites' ) . '" class="widefat" placeholder="' . esc_attr__( '0-100', 'anp-network-content' ) . '" value="' . esc_attr( $number_sites ) . '">';
         echo '</p>';
 
         // Exclude Sites
         echo '<p>';
-        echo '  <label for="exclude_sites" class="exclude_sites_label">' . __( 'Exclude Sites', 'glocal-network-content' ) . '</label>';
+        echo '  <label for="exclude_sites" class="exclude_sites_label">' . __( 'Exclude Sites', 'anp-network-content' ) . '</label>';
         echo '  <select id="' . $this->get_field_id( 'exclude_sites' ) . '" name="' . $this->get_field_name( 'exclude_sites' ) . '[]" multiple="multiple" class="widefat">';
-        echo '      <option value="" ' . selected( $exclude_sites, '', false ) . '> ' . __( 'None', 'glocal-network-content' );
+        echo '      <option value="" ' . selected( $exclude_sites, '', false ) . '> ' . __( 'None', 'anp-network-content' );
 
         $siteargs = array(
             'archived'   => 0,
@@ -150,43 +150,43 @@ class ANP_Network_Sites_Widget extends WP_Widget {
 
         // Sort by
         echo '<p>';
-        echo '  <label for="' . $this->get_field_id( 'sort_by' ) . '" class="sort_by_label">' . __( 'Sort By', 'glocal-network-content' ) . '</label>';
+        echo '  <label for="' . $this->get_field_id( 'sort_by' ) . '" class="sort_by_label">' . __( 'Sort By', 'anp-network-content' ) . '</label>';
         echo '  <select id="' . $this->get_field_id( 'sort_by' ) . '" name="' . $this->get_field_name( 'sort_by' ) . '" class="widefat">';
-        echo '      <option value="blogname" ' . selected( $sort_by, 'blogname', false ) . '> ' . __( 'Alphabetical', 'glocal-network-content' );
-        echo '      <option value="last_updated" ' . selected( $sort_by, 'last_updated', false ) . '> ' . __( 'Recently Active', 'glocal-network-content' );
-        echo '      <option value="post_count" ' . selected( $sort_by, 'post_count', false ) . '> ' . __( 'Most Active', 'glocal-network-content' );
-        echo '      <option value="registered" ' . selected( $sort_by, 'registered', false ) . '> ' . __( 'Newest', 'glocal-network-content' );
+        echo '      <option value="blogname" ' . selected( $sort_by, 'blogname', false ) . '> ' . __( 'Alphabetical', 'anp-network-content' );
+        echo '      <option value="last_updated" ' . selected( $sort_by, 'last_updated', false ) . '> ' . __( 'Recently Active', 'anp-network-content' );
+        echo '      <option value="post_count" ' . selected( $sort_by, 'post_count', false ) . '> ' . __( 'Most Active', 'anp-network-content' );
+        echo '      <option value="registered" ' . selected( $sort_by, 'registered', false ) . '> ' . __( 'Newest', 'anp-network-content' );
         echo '  </select>';
         echo '</p>';
 
         // Widget ID
         echo '<p>';
-        echo '  <label for="' . $this->get_field_id( 'id' ) . '" class="id_label">' . __( 'ID', 'glocal-network-content' ) . '</label>';
-        echo '  <input type="text" id="' . $this->get_field_id( 'id' ) . '" name="' . $this->get_field_name( 'id' ) . '" class="widefat" placeholder="' . esc_attr__( 'Enter ID', 'glocal-network-content' ) . '" value="' . esc_attr( $id ) . '">';
+        echo '  <label for="' . $this->get_field_id( 'id' ) . '" class="id_label">' . __( 'ID', 'anp-network-content' ) . '</label>';
+        echo '  <input type="text" id="' . $this->get_field_id( 'id' ) . '" name="' . $this->get_field_name( 'id' ) . '" class="widefat" placeholder="' . esc_attr__( 'Enter ID', 'anp-network-content' ) . '" value="' . esc_attr( $id ) . '">';
         echo '</p>';
 
         // Widget Class
         echo '<p>';
-        echo '  <label for="' . $this->get_field_id( 'class' ) . '" class="class_label">' . __( 'Class', 'glocal-network-content' ) . '</label>';
-        echo '  <input type="text" id="' . $this->get_field_id( 'class' ) . '" name="' . $this->get_field_name( 'class' ) . '" class="widefat" placeholder="' . esc_attr__( 'Enter Class', 'glocal-network-content' ) . '" value="' . esc_attr( $class ) . '">';
+        echo '  <label for="' . $this->get_field_id( 'class' ) . '" class="class_label">' . __( 'Class', 'anp-network-content' ) . '</label>';
+        echo '  <input type="text" id="' . $this->get_field_id( 'class' ) . '" name="' . $this->get_field_name( 'class' ) . '" class="widefat" placeholder="' . esc_attr__( 'Enter Class', 'anp-network-content' ) . '" value="' . esc_attr( $class ) . '">';
         echo '</p>';
 
         // Default Meta
         echo '<p>';
-        echo '  <label for="' . $this->get_field_id( 'show_meta' ) . '" class="show_meta_label">' . __( 'Show Meta', 'glocal-network-content' ) . '</label>';
-        echo '  <input type="checkbox" id="' . $this->get_field_id( 'show_meta' ) . '" name="' . $this->get_field_name( 'show_meta' ) . '" class="widefat" placeholder="' . esc_attr__( '', 'glocal-network-content' ) . '" value="1" ' . checked( $show_meta, true, false ) . '>';        
+        echo '  <label for="' . $this->get_field_id( 'show_meta' ) . '" class="show_meta_label">' . __( 'Show Meta', 'anp-network-content' ) . '</label>';
+        echo '  <input type="checkbox" id="' . $this->get_field_id( 'show_meta' ) . '" name="' . $this->get_field_name( 'show_meta' ) . '" class="widefat" placeholder="' . esc_attr__( '', 'anp-network-content' ) . '" value="1" ' . checked( $show_meta, true, false ) . '>';        
         echo '</p>';
 
         // Show Image
         echo '<p>';
-        echo '  <label for="' . $this->get_field_id( 'show_image' ) . '" class="show_image_label">' . __( 'Show Site Image', 'glocal-network-content' ) . '</label>';
-        echo '  <input type="checkbox" id="' . $this->get_field_id( 'show_image' ) . '" name="' . $this->get_field_name( 'show_image' ) . '" class="widefat" placeholder="' . esc_attr__( '', 'glocal-network-content' ) . '" value="1" ' . checked( $show_image, true, false ) . '>';
+        echo '  <label for="' . $this->get_field_id( 'show_image' ) . '" class="show_image_label">' . __( 'Show Site Image', 'anp-network-content' ) . '</label>';
+        echo '  <input type="checkbox" id="' . $this->get_field_id( 'show_image' ) . '" name="' . $this->get_field_name( 'show_image' ) . '" class="widefat" placeholder="' . esc_attr__( '', 'anp-network-content' ) . '" value="1" ' . checked( $show_image, true, false ) . '>';
         echo '</p>';
 
         // Default Image
         echo '<p>';
-        echo '  <label for="' . $this->get_field_id( 'default_image' ) . '" class="default_image_label">' . __( 'Default Image', 'glocal-network-content' ) . '</label>';
-        echo '  <input type="text" id="' . $this->get_field_id( 'default_image' ) . '" name="' . $this->get_field_name( 'default_image' ) . '" class="widefat" placeholder="' . esc_attr__( 'Enter path/url of default image', 'glocal-network-content' ) . '" value="' . esc_url( $default_image ) . '">';
+        echo '  <label for="' . $this->get_field_id( 'default_image' ) . '" class="default_image_label">' . __( 'Default Image', 'anp-network-content' ) . '</label>';
+        echo '  <input type="text" id="' . $this->get_field_id( 'default_image' ) . '" name="' . $this->get_field_name( 'default_image' ) . '" class="widefat" placeholder="' . esc_attr__( 'Enter path/url of default image', 'anp-network-content' ) . '" value="' . esc_url( $default_image ) . '">';
         echo '  <input class="upload_image_button button button-primary" type="button" value="Upload Image" />';
         echo '</p>';
 
@@ -226,10 +226,10 @@ class ANP_Network_Posts_Widget extends WP_Widget {
 
         parent::__construct(
             'anp-network-posts',
-            __( 'Network Posts', 'glocal-network-content' ),
+            __( 'Network Posts', 'anp-network-content' ),
             array(
-                'description' => __( 'Display list of posts from your network.', 'glocal-network-content' ),
-                'classname'   => 'widget_glocal_network_posts_widget',
+                'description' => __( 'Display list of posts from your network.', 'anp-network-content' ),
+                'classname'   => 'widget__anp-network-posts',
             )
         );
 
@@ -311,20 +311,20 @@ class ANP_Network_Posts_Widget extends WP_Widget {
 
         // Form fields
         echo '<p>';
-        echo '  <label for="' . $this->get_field_id( 'title' ) . '" class="title_label">' . __( 'Title', 'glocal-network-content' ) . '</label>';
-        echo '  <input type="text" id="' . $this->get_field_id( 'title' ) . '" name="' . $this->get_field_name( 'title' ) . '" class="widefat" placeholder="' . esc_attr__( 'Enter Widget Title', 'glocal-network-content' ) . '" value="' . esc_attr( $title ) . '">';
+        echo '  <label for="' . $this->get_field_id( 'title' ) . '" class="title_label">' . __( 'Title', 'anp-network-content' ) . '</label>';
+        echo '  <input type="text" id="' . $this->get_field_id( 'title' ) . '" name="' . $this->get_field_name( 'title' ) . '" class="widefat" placeholder="' . esc_attr__( 'Enter Widget Title', 'anp-network-content' ) . '" value="' . esc_attr( $title ) . '">';
         echo '</p>';
 
         echo '<p>';
-        echo '  <label for="' . $this->get_field_id( 'number_posts' ) . '" class="number_posts_label">' . __( 'Number of Posts', 'glocal-network-content' ) . '</label>';
-        echo '  <input type="number" id="' . $this->get_field_id( 'number_posts' ) . '" name="' . $this->get_field_name( 'number_posts' ) . '" class="widefat" placeholder="' . esc_attr__( '0-100', 'glocal-network-content' ) . '" value="' . esc_attr( $number_posts ) . '">';
+        echo '  <label for="' . $this->get_field_id( 'number_posts' ) . '" class="number_posts_label">' . __( 'Number of Posts', 'anp-network-content' ) . '</label>';
+        echo '  <input type="number" id="' . $this->get_field_id( 'number_posts' ) . '" name="' . $this->get_field_name( 'number_posts' ) . '" class="widefat" placeholder="' . esc_attr__( '0-100', 'anp-network-content' ) . '" value="' . esc_attr( $number_posts ) . '">';
         echo '</p>';
 
         // Exclude Sites
         echo '<p>';
-        echo '  <label for="exclude_sites" class="exclude_sites_label">' . __( 'Exclude Sites', 'glocal-network-content' ) . '</label>';
+        echo '  <label for="exclude_sites" class="exclude_sites_label">' . __( 'Exclude Sites', 'anp-network-content' ) . '</label>';
         echo '  <select id="' . $this->get_field_id( 'exclude_sites' ) . '" name="' . $this->get_field_name( 'exclude_sites' ) . '[]" multiple="multiple" class="widefat">';
-        echo '      <option value="" ' . selected( $exclude_sites, '', false ) . '> ' . __( 'None', 'glocal-network-content' );
+        echo '      <option value="" ' . selected( $exclude_sites, '', false ) . '> ' . __( 'None', 'anp-network-content' );
 
         $siteargs = array(
             'archived'   => 0,
@@ -345,9 +345,9 @@ class ANP_Network_Posts_Widget extends WP_Widget {
 
         // Include Categories
         echo '<p>';
-        echo '  <label for="include_categories" class="include_categories_label">' . __( 'Include Categories', 'glocal-network-content' ) . '</label>';
+        echo '  <label for="include_categories" class="include_categories_label">' . __( 'Include Categories', 'anp-network-content' ) . '</label>';
         echo '  <select id="' . $this->get_field_id( 'include_categories' ) . '" name="' . $this->get_field_name( 'include_categories' ) . '[]" multiple="multiple" class="widefat">';
-        echo '      <option value="" ' . selected( $include_categories, '', false ) . '> ' . __( 'None', 'glocal-network-content' );
+        echo '      <option value="" ' . selected( $include_categories, '', false ) . '> ' . __( 'None', 'anp-network-content' );
 
         $categories = get_categories();
 
@@ -360,51 +360,51 @@ class ANP_Network_Posts_Widget extends WP_Widget {
 
         // Posts per Site
         echo '<p>';
-        echo '  <label for="' . $this->get_field_id( 'posts_per_site' ) . '" class="posts_per_site_label">' . __( 'Posts per Site', 'glocal-network-content' ) . '</label>';
-        echo '  <input type="number" id="' . $this->get_field_id( 'posts_per_site' ) . '" name="' . $this->get_field_name( 'posts_per_site' ) . '" class="widefat" placeholder="' . esc_attr__( '0-100', 'glocal-network-content' ) . '" value="' . esc_attr( $posts_per_site ) . '">';
+        echo '  <label for="' . $this->get_field_id( 'posts_per_site' ) . '" class="posts_per_site_label">' . __( 'Posts per Site', 'anp-network-content' ) . '</label>';
+        echo '  <input type="number" id="' . $this->get_field_id( 'posts_per_site' ) . '" name="' . $this->get_field_name( 'posts_per_site' ) . '" class="widefat" placeholder="' . esc_attr__( '0-100', 'anp-network-content' ) . '" value="' . esc_attr( $posts_per_site ) . '">';
         echo '</p>';
 
         echo '<p>';
-        echo '  <label for="' . $this->get_field_id( 'style' ) . '" class="style_label">' . __( 'Display Style', 'glocal-network-content' ) . '</label>';
+        echo '  <label for="' . $this->get_field_id( 'style' ) . '" class="style_label">' . __( 'Display Style', 'anp-network-content' ) . '</label>';
         echo '  <select id="' . $this->get_field_id( 'style' ) . '" name="' . $this->get_field_name( 'style' ) . '" class="widefat">';
-        echo '      <option value="" ' . selected( $style, '', false ) . '> ' . __( 'List (Default)', 'glocal-network-content' );
-        echo '      <option value="block" ' . selected( $style, 'block', false ) . '> ' . __( 'Block', 'glocal-network-content' );
+        echo '      <option value="" ' . selected( $style, '', false ) . '> ' . __( 'List (Default)', 'anp-network-content' );
+        echo '      <option value="block" ' . selected( $style, 'block', false ) . '> ' . __( 'Block', 'anp-network-content' );
         echo '  </select>';
         echo '</p>';
 
         echo '<p>';
-        echo '  <label for="' . $this->get_field_id( 'id' ) . '" class="id_label">' . __( 'ID', 'glocal-network-content' ) . '</label>';
-        echo '  <input type="text" id="' . $this->get_field_id( 'id' ) . '" name="' . $this->get_field_name( 'id' ) . '" class="widefat" placeholder="' . esc_attr__( 'Enter ID', 'glocal-network-content' ) . '" value="' . esc_attr( $id ) . '">';
+        echo '  <label for="' . $this->get_field_id( 'id' ) . '" class="id_label">' . __( 'ID', 'anp-network-content' ) . '</label>';
+        echo '  <input type="text" id="' . $this->get_field_id( 'id' ) . '" name="' . $this->get_field_name( 'id' ) . '" class="widefat" placeholder="' . esc_attr__( 'Enter ID', 'anp-network-content' ) . '" value="' . esc_attr( $id ) . '">';
         echo '</p>';
 
         echo '<p>';
-        echo '  <label for="' . $this->get_field_id( 'class' ) . '" class="class_label">' . __( 'Class', 'glocal-network-content' ) . '</label>';
-        echo '  <input type="text" id="' . $this->get_field_id( 'class' ) . '" name="' . $this->get_field_name( 'class' ) . '" class="widefat" placeholder="' . esc_attr__( 'Enter Class', 'glocal-network-content' ) . '" value="' . esc_attr( $class ) . '">';
+        echo '  <label for="' . $this->get_field_id( 'class' ) . '" class="class_label">' . __( 'Class', 'anp-network-content' ) . '</label>';
+        echo '  <input type="text" id="' . $this->get_field_id( 'class' ) . '" name="' . $this->get_field_name( 'class' ) . '" class="widefat" placeholder="' . esc_attr__( 'Enter Class', 'anp-network-content' ) . '" value="' . esc_attr( $class ) . '">';
         echo '</p>';
 
         echo '<p>';
-        echo '  <label for="' . $this->get_field_id( 'show_meta' ) . '" class="show_meta_label">' . __( 'Show Meta', 'glocal-network-content' ) . '</label>';
-        echo '  <input type="checkbox" id="' . $this->get_field_id( 'show_meta' ) . '" name="' . $this->get_field_name( 'show_meta' ) . '" class="widefat" placeholder="' . esc_attr__( '', 'glocal-network-content' ) . '" value="1" ' . checked( $show_meta, true, false ) . '>';        
+        echo '  <label for="' . $this->get_field_id( 'show_meta' ) . '" class="show_meta_label">' . __( 'Show Meta', 'anp-network-content' ) . '</label>';
+        echo '  <input type="checkbox" id="' . $this->get_field_id( 'show_meta' ) . '" name="' . $this->get_field_name( 'show_meta' ) . '" class="widefat" placeholder="' . esc_attr__( '', 'anp-network-content' ) . '" value="1" ' . checked( $show_meta, true, false ) . '>';        
         echo '</p>';
 
         echo '<p>';
-        echo '  <label for="' . $this->get_field_id( 'show_thumbnail' ) . '" class="show_thumbnail_label">' . __( 'Show Thumbnail', 'glocal-network-content' ) . '</label>';
-        echo '  <input type="checkbox" id="' . $this->get_field_id( 'show_thumbnail' ) . '" name="' . $this->get_field_name( 'show_thumbnail' ) . '" class="widefat" placeholder="' . esc_attr__( '', 'glocal-network-content' ) . '" value="1" ' . checked( $show_thumbnail, true, false ) . '>';
+        echo '  <label for="' . $this->get_field_id( 'show_thumbnail' ) . '" class="show_thumbnail_label">' . __( 'Show Thumbnail', 'anp-network-content' ) . '</label>';
+        echo '  <input type="checkbox" id="' . $this->get_field_id( 'show_thumbnail' ) . '" name="' . $this->get_field_name( 'show_thumbnail' ) . '" class="widefat" placeholder="' . esc_attr__( '', 'anp-network-content' ) . '" value="1" ' . checked( $show_thumbnail, true, false ) . '>';
         echo '</p>';
 
         echo '<p>';
-        echo '  <label for="' . $this->get_field_id( 'show_excerpt' ) . '" class="show_excerpt_label">' . __( 'Show Excerpt', 'glocal-network-content' ) . '</label>';
-        echo '  <input type="checkbox" id="' . $this->get_field_id( 'show_excerpt' ) . '" name="' . $this->get_field_name( 'show_excerpt' ) . '" class="widefat" placeholder="' . esc_attr__( '', 'glocal-network-content' ) . '" value="1" ' . checked( $show_excerpt, true, false ) . '>';
+        echo '  <label for="' . $this->get_field_id( 'show_excerpt' ) . '" class="show_excerpt_label">' . __( 'Show Excerpt', 'anp-network-content' ) . '</label>';
+        echo '  <input type="checkbox" id="' . $this->get_field_id( 'show_excerpt' ) . '" name="' . $this->get_field_name( 'show_excerpt' ) . '" class="widefat" placeholder="' . esc_attr__( '', 'anp-network-content' ) . '" value="1" ' . checked( $show_excerpt, true, false ) . '>';
         echo '</p>';
 
         echo '<p>';
-        echo '  <label for="' . $this->get_field_id( 'excerpt_length' ) . '" class="excerpt_length_label">' . __( 'Excerpt Length', 'glocal-network-content' ) . '</label>';
-        echo '  <input type="number" id="' . $this->get_field_id( 'excerpt_length' ) . '" name="' . $this->get_field_name( 'excerpt_length' ) . '" class="widefat" placeholder="' . esc_attr__( '0-100', 'glocal-network-content' ) . '" value="' . esc_attr( $excerpt_length ) . '">';
+        echo '  <label for="' . $this->get_field_id( 'excerpt_length' ) . '" class="excerpt_length_label">' . __( 'Excerpt Length', 'anp-network-content' ) . '</label>';
+        echo '  <input type="number" id="' . $this->get_field_id( 'excerpt_length' ) . '" name="' . $this->get_field_name( 'excerpt_length' ) . '" class="widefat" placeholder="' . esc_attr__( '0-100', 'anp-network-content' ) . '" value="' . esc_attr( $excerpt_length ) . '">';
         echo '</p>';
 
         echo '<p>';
-        echo '  <label for="' . $this->get_field_id( 'show_site_name' ) . '" class="show_site_name_label">' . __( 'Show Site Name', 'glocal-network-content' ) . '</label>';
-        echo '  <input type="checkbox" id="' . $this->get_field_id( 'show_site_name' ) . '" name="' . $this->get_field_name( 'show_site_name' ) . '" class="widefat" placeholder="' . esc_attr__( '', 'glocal-network-content' ) . '" value="1" ' . checked( $show_site_name, true, false ) . '>';
+        echo '  <label for="' . $this->get_field_id( 'show_site_name' ) . '" class="show_site_name_label">' . __( 'Show Site Name', 'anp-network-content' ) . '</label>';
+        echo '  <input type="checkbox" id="' . $this->get_field_id( 'show_site_name' ) . '" name="' . $this->get_field_name( 'show_site_name' ) . '" class="widefat" placeholder="' . esc_attr__( '', 'anp-network-content' ) . '" value="1" ' . checked( $show_site_name, true, false ) . '>';
         echo '</p>';
 
     }
@@ -449,9 +449,9 @@ class ANP_Network_Post_Highlights_Widget extends WP_Widget {
 
         parent::__construct(
             'anp-highlights-widget',
-            __( 'Network Post Highlights', 'glocal-network-content' ),
+            __( 'Network Post Highlights', 'anp-network-content' ),
             array(
-                'description' => __( 'Display a highlighted list of posts from your network.', 'glocal-network-content' ),
+                'description' => __( 'Display a highlighted list of posts from your network.', 'anp-network-content' ),
                 'classname'   => 'highlights',
             )
         );
@@ -541,26 +541,26 @@ class ANP_Network_Post_Highlights_Widget extends WP_Widget {
 
         // Form fields
         echo '<p>';
-        echo '  <label for="' . $this->get_field_id( 'title' ) . '" class="title_label">' . __( 'Title', 'glocal-network-content' ) . '</label>';
-        echo '  <input type="text" id="' . $this->get_field_id( 'title' ) . '" name="' . $this->get_field_name( 'title' ) . '" class="widefat" placeholder="' . esc_attr__( 'Enter Widget Title', 'glocal-network-content' ) . '" value="' . esc_attr( $title ) . '">';
+        echo '  <label for="' . $this->get_field_id( 'title' ) . '" class="title_label">' . __( 'Title', 'anp-network-content' ) . '</label>';
+        echo '  <input type="text" id="' . $this->get_field_id( 'title' ) . '" name="' . $this->get_field_name( 'title' ) . '" class="widefat" placeholder="' . esc_attr__( 'Enter Widget Title', 'anp-network-content' ) . '" value="' . esc_attr( $title ) . '">';
         echo '</p>';
 
         echo '<p>';
-        echo '  <label for="' . $this->get_field_id( 'title_image' ) . '" class="title_image_label">' . __( 'Title Image', 'glocal-network-content' ) . '</label>';
-        echo '  <input type="text" id="' . $this->get_field_id( 'title_image' ) . '" name="' . $this->get_field_name( 'title_image' ) . '" class="widefat" placeholder="' . esc_attr__( 'Enter image path or URL', 'glocal-network-content' ) . '" value="' . esc_attr( $title_image ) . '">';
+        echo '  <label for="' . $this->get_field_id( 'title_image' ) . '" class="title_image_label">' . __( 'Title Image', 'anp-network-content' ) . '</label>';
+        echo '  <input type="text" id="' . $this->get_field_id( 'title_image' ) . '" name="' . $this->get_field_name( 'title_image' ) . '" class="widefat" placeholder="' . esc_attr__( 'Enter image path or URL', 'anp-network-content' ) . '" value="' . esc_attr( $title_image ) . '">';
         echo '  <input class="upload_image_button button button-primary" type="button" value="Upload Image" />';
         echo '</p>';
 
         echo '<p>';
-        echo '  <label for="' . $this->get_field_id( 'number_posts' ) . '" class="number_posts_label">' . __( 'Number of Posts', 'glocal-network-content' ) . '</label>';
-        echo '  <input type="number" id="' . $this->get_field_id( 'number_posts' ) . '" name="' . $this->get_field_name( 'number_posts' ) . '" class="widefat" placeholder="' . esc_attr__( '0-100', 'glocal-network-content' ) . '" value="' . esc_attr( $number_posts ) . '">';
+        echo '  <label for="' . $this->get_field_id( 'number_posts' ) . '" class="number_posts_label">' . __( 'Number of Posts', 'anp-network-content' ) . '</label>';
+        echo '  <input type="number" id="' . $this->get_field_id( 'number_posts' ) . '" name="' . $this->get_field_name( 'number_posts' ) . '" class="widefat" placeholder="' . esc_attr__( '0-100', 'anp-network-content' ) . '" value="' . esc_attr( $number_posts ) . '">';
         echo '</p>';
 
         // Exclude Sites
         echo '<p>';
-        echo '  <label for="exclude_sites" class="exclude_sites_label">' . __( 'Exclude Sites', 'glocal-network-content' ) . '</label>';
+        echo '  <label for="exclude_sites" class="exclude_sites_label">' . __( 'Exclude Sites', 'anp-network-content' ) . '</label>';
         echo '  <select id="' . $this->get_field_id( 'exclude_sites' ) . '" name="' . $this->get_field_name( 'exclude_sites' ) . '[]" multiple="multiple" class="widefat">';
-        echo '      <option value="" ' . selected( $exclude_sites, '', false ) . '> ' . __( 'None', 'glocal-network-content' );
+        echo '      <option value="" ' . selected( $exclude_sites, '', false ) . '> ' . __( 'None', 'anp-network-content' );
 
         $siteargs = array(
             'archived'   => 0,
@@ -581,9 +581,9 @@ class ANP_Network_Post_Highlights_Widget extends WP_Widget {
 
         // Include Categories
         echo '<p>';
-        echo '  <label for="include_categories" class="include_categories_label">' . __( 'Include Categories', 'glocal-network-content' ) . '</label>';
+        echo '  <label for="include_categories" class="include_categories_label">' . __( 'Include Categories', 'anp-network-content' ) . '</label>';
         echo '  <select id="' . $this->get_field_id( 'include_categories' ) . '" name="' . $this->get_field_name( 'include_categories' ) . '[]" multiple="multiple" class="widefat">';
-        echo '      <option value="" ' . selected( $include_categories, '', false ) . '> ' . __( 'None', 'glocal-network-content' );
+        echo '      <option value="" ' . selected( $include_categories, '', false ) . '> ' . __( 'None', 'anp-network-content' );
 
         $categories = get_categories();
 
@@ -596,43 +596,43 @@ class ANP_Network_Post_Highlights_Widget extends WP_Widget {
 
         // Posts per Site
         echo '<p>';
-        echo '  <label for="' . $this->get_field_id( 'posts_per_site' ) . '" class="posts_per_site_label">' . __( 'Posts per Site', 'glocal-network-content' ) . '</label>';
-        echo '  <input type="number" id="' . $this->get_field_id( 'posts_per_site' ) . '" name="' . $this->get_field_name( 'posts_per_site' ) . '" class="widefat" placeholder="' . esc_attr__( '0-100', 'glocal-network-content' ) . '" value="' . esc_attr( $posts_per_site ) . '">';
+        echo '  <label for="' . $this->get_field_id( 'posts_per_site' ) . '" class="posts_per_site_label">' . __( 'Posts per Site', 'anp-network-content' ) . '</label>';
+        echo '  <input type="number" id="' . $this->get_field_id( 'posts_per_site' ) . '" name="' . $this->get_field_name( 'posts_per_site' ) . '" class="widefat" placeholder="' . esc_attr__( '0-100', 'anp-network-content' ) . '" value="' . esc_attr( $posts_per_site ) . '">';
         echo '</p>';
 
         echo '<p>';
-        echo '  <label for="' . $this->get_field_id( 'id' ) . '" class="id_label">' . __( 'ID', 'glocal-network-content' ) . '</label>';
-        echo '  <input type="text" id="' . $this->get_field_id( 'id' ) . '" name="' . $this->get_field_name( 'id' ) . '" class="widefat" placeholder="' . esc_attr__( 'Enter ID', 'glocal-network-content' ) . '" value="' . esc_attr( $id ) . '">';
+        echo '  <label for="' . $this->get_field_id( 'id' ) . '" class="id_label">' . __( 'ID', 'anp-network-content' ) . '</label>';
+        echo '  <input type="text" id="' . $this->get_field_id( 'id' ) . '" name="' . $this->get_field_name( 'id' ) . '" class="widefat" placeholder="' . esc_attr__( 'Enter ID', 'anp-network-content' ) . '" value="' . esc_attr( $id ) . '">';
         echo '</p>';
 
         echo '<p>';
-        echo '  <label for="' . $this->get_field_id( 'class' ) . '" class="class_label">' . __( 'Class', 'glocal-network-content' ) . '</label>';
-        echo '  <input type="text" id="' . $this->get_field_id( 'class' ) . '" name="' . $this->get_field_name( 'class' ) . '" class="widefat" placeholder="' . esc_attr__( 'Enter Class', 'glocal-network-content' ) . '" value="' . esc_attr( $class ) . '">';
+        echo '  <label for="' . $this->get_field_id( 'class' ) . '" class="class_label">' . __( 'Class', 'anp-network-content' ) . '</label>';
+        echo '  <input type="text" id="' . $this->get_field_id( 'class' ) . '" name="' . $this->get_field_name( 'class' ) . '" class="widefat" placeholder="' . esc_attr__( 'Enter Class', 'anp-network-content' ) . '" value="' . esc_attr( $class ) . '">';
         echo '</p>';
 
         echo '<p>';
-        echo '  <label for="' . $this->get_field_id( 'show_meta' ) . '" class="show_meta_label">' . __( 'Show Meta', 'glocal-network-content' ) . '</label>';
-        echo '  <input type="checkbox" id="' . $this->get_field_id( 'show_meta' ) . '" name="' . $this->get_field_name( 'show_meta' ) . '" class="widefat" placeholder="' . esc_attr__( '', 'glocal-network-content' ) . '" value="1" ' . checked( $show_meta, true, false ) . '>';        
+        echo '  <label for="' . $this->get_field_id( 'show_meta' ) . '" class="show_meta_label">' . __( 'Show Meta', 'anp-network-content' ) . '</label>';
+        echo '  <input type="checkbox" id="' . $this->get_field_id( 'show_meta' ) . '" name="' . $this->get_field_name( 'show_meta' ) . '" class="widefat" placeholder="' . esc_attr__( '', 'anp-network-content' ) . '" value="1" ' . checked( $show_meta, true, false ) . '>';        
         echo '</p>';
 
         echo '<p>';
-        echo '  <label for="' . $this->get_field_id( 'show_thumbnail' ) . '" class="show_thumbnail_label">' . __( 'Show Thumbnail', 'glocal-network-content' ) . '</label>';
-        echo '  <input type="checkbox" id="' . $this->get_field_id( 'show_thumbnail' ) . '" name="' . $this->get_field_name( 'show_thumbnail' ) . '" class="widefat" placeholder="' . esc_attr__( '', 'glocal-network-content' ) . '" value="1" ' . checked( $show_thumbnail, true, false ) . '>';
+        echo '  <label for="' . $this->get_field_id( 'show_thumbnail' ) . '" class="show_thumbnail_label">' . __( 'Show Thumbnail', 'anp-network-content' ) . '</label>';
+        echo '  <input type="checkbox" id="' . $this->get_field_id( 'show_thumbnail' ) . '" name="' . $this->get_field_name( 'show_thumbnail' ) . '" class="widefat" placeholder="' . esc_attr__( '', 'anp-network-content' ) . '" value="1" ' . checked( $show_thumbnail, true, false ) . '>';
         echo '</p>';
 
         echo '<p>';
-        echo '  <label for="' . $this->get_field_id( 'show_excerpt' ) . '" class="show_excerpt_label">' . __( 'Show Excerpt', 'glocal-network-content' ) . '</label>';
-        echo '  <input type="checkbox" id="' . $this->get_field_id( 'show_excerpt' ) . '" name="' . $this->get_field_name( 'show_excerpt' ) . '" class="widefat" placeholder="' . esc_attr__( '', 'glocal-network-content' ) . '" value="1" ' . checked( $show_excerpt, true, false ) . '>';
+        echo '  <label for="' . $this->get_field_id( 'show_excerpt' ) . '" class="show_excerpt_label">' . __( 'Show Excerpt', 'anp-network-content' ) . '</label>';
+        echo '  <input type="checkbox" id="' . $this->get_field_id( 'show_excerpt' ) . '" name="' . $this->get_field_name( 'show_excerpt' ) . '" class="widefat" placeholder="' . esc_attr__( '', 'anp-network-content' ) . '" value="1" ' . checked( $show_excerpt, true, false ) . '>';
         echo '</p>';
 
         echo '<p>';
-        echo '  <label for="' . $this->get_field_id( 'excerpt_length' ) . '" class="excerpt_length_label">' . __( 'Excerpt Length', 'glocal-network-content' ) . '</label>';
-        echo '  <input type="number" id="' . $this->get_field_id( 'excerpt_length' ) . '" name="' . $this->get_field_name( 'excerpt_length' ) . '" class="widefat" placeholder="' . esc_attr__( '0-100', 'glocal-network-content' ) . '" value="' . esc_attr( $excerpt_length ) . '">';
+        echo '  <label for="' . $this->get_field_id( 'excerpt_length' ) . '" class="excerpt_length_label">' . __( 'Excerpt Length', 'anp-network-content' ) . '</label>';
+        echo '  <input type="number" id="' . $this->get_field_id( 'excerpt_length' ) . '" name="' . $this->get_field_name( 'excerpt_length' ) . '" class="widefat" placeholder="' . esc_attr__( '0-100', 'anp-network-content' ) . '" value="' . esc_attr( $excerpt_length ) . '">';
         echo '</p>';
 
         echo '<p>';
-        echo '  <label for="' . $this->get_field_id( 'show_site_name' ) . '" class="show_site_name_label">' . __( 'Show Site Name', 'glocal-network-content' ) . '</label>';
-        echo '  <input type="checkbox" id="' . $this->get_field_id( 'show_site_name' ) . '" name="' . $this->get_field_name( 'show_site_name' ) . '" class="widefat" placeholder="' . esc_attr__( '', 'glocal-network-content' ) . '" value="1" ' . checked( $show_site_name, true, false ) . '>';
+        echo '  <label for="' . $this->get_field_id( 'show_site_name' ) . '" class="show_site_name_label">' . __( 'Show Site Name', 'anp-network-content' ) . '</label>';
+        echo '  <input type="checkbox" id="' . $this->get_field_id( 'show_site_name' ) . '" name="' . $this->get_field_name( 'show_site_name' ) . '" class="widefat" placeholder="' . esc_attr__( '', 'anp-network-content' ) . '" value="1" ' . checked( $show_site_name, true, false ) . '>';
         echo '</p>';
 
     }
@@ -675,10 +675,10 @@ class ANP_Network_Events_Widget extends WP_Widget {
 
         parent::__construct(
             'anp-network-events',
-            __( 'Network Events', 'glocal-network-content' ),
+            __( 'Network Events', 'anp-network-content' ),
             array(
-                'description' => __( 'Display list of events from your network.', 'glocal-network-content' ),
-                'classname'   => 'widget_glocal_network_events_widget',
+                'description' => __( 'Display list of events from your network.', 'anp-network-content' ),
+                'classname'   => 'widget__anp-network-events',
             )
         );
 
@@ -764,20 +764,20 @@ class ANP_Network_Events_Widget extends WP_Widget {
 
         // Form fields
         echo '<p>';
-        echo '  <label for="' . $this->get_field_id( 'title' ) . '" class="title_label">' . __( 'Title', 'glocal-network-content' ) . '</label>';
-        echo '  <input type="text" id="' . $this->get_field_id( 'title' ) . '" name="' . $this->get_field_name( 'title' ) . '" class="widefat" placeholder="' . esc_attr__( 'Enter Widget Title', 'glocal-network-content' ) . '" value="' . esc_attr( $title ) . '">';
+        echo '  <label for="' . $this->get_field_id( 'title' ) . '" class="title_label">' . __( 'Title', 'anp-network-content' ) . '</label>';
+        echo '  <input type="text" id="' . $this->get_field_id( 'title' ) . '" name="' . $this->get_field_name( 'title' ) . '" class="widefat" placeholder="' . esc_attr__( 'Enter Widget Title', 'anp-network-content' ) . '" value="' . esc_attr( $title ) . '">';
         echo '</p>';
 
         echo '<p>';
-        echo '  <label for="' . $this->get_field_id( 'number_posts' ) . '" class="number_posts_label">' . __( 'Number of Posts', 'glocal-network-content' ) . '</label>';
-        echo '  <input type="number" id="' . $this->get_field_id( 'number_posts' ) . '" name="' . $this->get_field_name( 'number_posts' ) . '" class="widefat" placeholder="' . esc_attr__( '0-100', 'glocal-network-content' ) . '" value="' . esc_attr( $number_posts ) . '">';
+        echo '  <label for="' . $this->get_field_id( 'number_posts' ) . '" class="number_posts_label">' . __( 'Number of Posts', 'anp-network-content' ) . '</label>';
+        echo '  <input type="number" id="' . $this->get_field_id( 'number_posts' ) . '" name="' . $this->get_field_name( 'number_posts' ) . '" class="widefat" placeholder="' . esc_attr__( '0-100', 'anp-network-content' ) . '" value="' . esc_attr( $number_posts ) . '">';
         echo '</p>';
 
         // Exclude Sites
         echo '<p>';
-        echo '  <label for="exclude_sites" class="exclude_sites_label">' . __( 'Exclude Sites', 'glocal-network-content' ) . '</label>';
+        echo '  <label for="exclude_sites" class="exclude_sites_label">' . __( 'Exclude Sites', 'anp-network-content' ) . '</label>';
         echo '  <select id="' . $this->get_field_id( 'exclude_sites' ) . '" name="' . $this->get_field_name( 'exclude_sites' ) . '[]" multiple="multiple" class="widefat">';
-        echo '      <option value="" ' . selected( $exclude_sites, '', false ) . '> ' . __( 'None', 'glocal-network-content' );
+        echo '      <option value="" ' . selected( $exclude_sites, '', false ) . '> ' . __( 'None', 'anp-network-content' );
 
         $siteargs = array(
             'archived'   => 0,
@@ -799,9 +799,9 @@ class ANP_Network_Events_Widget extends WP_Widget {
 
         // Include Event Categories
         echo '<p>';
-        echo '  <label for="include_event_categories" class="include_event_categories_label">' . __( 'Include Categories', 'glocal-network-content' ) . '</label>';
+        echo '  <label for="include_event_categories" class="include_event_categories_label">' . __( 'Include Categories', 'anp-network-content' ) . '</label>';
         echo '  <select id="' . $this->get_field_id( 'include_event_categories' ) . '" name="' . $this->get_field_name( 'include_event_categories' ) . '[]" multiple="multiple" class="widefat">';
-        echo '      <option value="" ' . selected( $include_event_categories, '', false ) . '> ' . __( 'None', 'glocal-network-content' );
+        echo '      <option value="" ' . selected( $include_event_categories, '', false ) . '> ' . __( 'None', 'anp-network-content' );
 
         $categories = get_sitewide_taxonomy_terms( 'event-category' );
 
@@ -815,9 +815,9 @@ class ANP_Network_Events_Widget extends WP_Widget {
 
         // Include Event Tags
         echo '<p>';
-        echo '  <label for="include_event_tags" class="include_event_tags_label">' . __( 'Include Tags', 'glocal-network-content' ) . '</label>';
+        echo '  <label for="include_event_tags" class="include_event_tags_label">' . __( 'Include Tags', 'anp-network-content' ) . '</label>';
         echo '  <select id="' . $this->get_field_id( 'include_event_tags' ) . '" name="' . $this->get_field_name( 'include_event_tags' ) . '[]" multiple="multiple" class="widefat">';
-        echo '      <option value="" ' . selected( $include_event_tags, '', false ) . '> ' . __( 'None', 'glocal-network-content' );
+        echo '      <option value="" ' . selected( $include_event_tags, '', false ) . '> ' . __( 'None', 'anp-network-content' );
 
         $tags = get_sitewide_taxonomy_terms( 'event-tag' );
 
@@ -830,13 +830,13 @@ class ANP_Network_Events_Widget extends WP_Widget {
 
         // Event Scope
         echo '<p>';
-        echo '  <label for="' . $this->get_field_id( 'event_scope' ) . '" class="event_scope_label">' . __( 'Event Scope', 'glocal-network-content' ) . '</label>';
+        echo '  <label for="' . $this->get_field_id( 'event_scope' ) . '" class="event_scope_label">' . __( 'Event Scope', 'anp-network-content' ) . '</label>';
         echo '  <select id="' . $this->get_field_id( 'event_scope' ) . '" name="' . $this->get_field_name( 'event_scope' ) . '" class="widefat">';
 
         $scopes = array(
-            'future' => __( 'Future', 'glocal-network-content' ),
-            'past'   => __( 'Past', 'glocal-network-content' ),
-            'all'    => __( 'All', 'glocal-network-content' )
+            'future' => __( 'Future', 'anp-network-content' ),
+            'past'   => __( 'Past', 'anp-network-content' ),
+            'all'    => __( 'All', 'anp-network-content' )
         );
 
         foreach( $scopes as $key => $value ) {
@@ -851,12 +851,12 @@ class ANP_Network_Events_Widget extends WP_Widget {
 
         // Style
         echo '<p>';
-        echo '  <label for="' . $this->get_field_id( 'style' ) . '" class="style_label">' . __( 'Display Style', 'glocal-network-content' ) . '</label>';
+        echo '  <label for="' . $this->get_field_id( 'style' ) . '" class="style_label">' . __( 'Display Style', 'anp-network-content' ) . '</label>';
         echo '  <select id="' . $this->get_field_id( 'style' ) . '" name="' . $this->get_field_name( 'style' ) . '" class="widefat">';
 
         $styles = array(
-            ''      => __( 'List (Default)', 'glocal-network-content' ),
-            'block' => __( 'Block', 'glocal-network-content' )
+            ''      => __( 'List (Default)', 'anp-network-content' ),
+            'block' => __( 'Block', 'anp-network-content' )
         );
 
         foreach( $styles as $key => $value ) {
@@ -870,38 +870,38 @@ class ANP_Network_Events_Widget extends WP_Widget {
 
 
         
-        // echo '<option value="block" ' . selected( $style, 'block', false ) . '> ' . __( 'Block', 'glocal-network-content' );
+        // echo '<option value="block" ' . selected( $style, 'block', false ) . '> ' . __( 'Block', 'anp-network-content' );
         echo '  </select>';
         echo '</p>';
 
         // ID
         echo '<p>';
-        echo '  <label for="' . $this->get_field_id( 'id' ) . '" class="id_label">' . __( 'ID', 'glocal-network-content' ) . '</label>';
-        echo '  <input type="text" id="' . $this->get_field_id( 'id' ) . '" name="' . $this->get_field_name( 'id' ) . '" class="widefat" placeholder="' . esc_attr__( 'Enter ID', 'glocal-network-content' ) . '" value="' . esc_attr( $id ) . '">';
+        echo '  <label for="' . $this->get_field_id( 'id' ) . '" class="id_label">' . __( 'ID', 'anp-network-content' ) . '</label>';
+        echo '  <input type="text" id="' . $this->get_field_id( 'id' ) . '" name="' . $this->get_field_name( 'id' ) . '" class="widefat" placeholder="' . esc_attr__( 'Enter ID', 'anp-network-content' ) . '" value="' . esc_attr( $id ) . '">';
         echo '</p>';
 
         // Class
         echo '<p>';
-        echo '  <label for="' . $this->get_field_id( 'class' ) . '" class="class_label">' . __( 'Class', 'glocal-network-content' ) . '</label>';
-        echo '  <input type="text" id="' . $this->get_field_id( 'class' ) . '" name="' . $this->get_field_name( 'class' ) . '" class="widefat" placeholder="' . esc_attr__( 'Enter Class', 'glocal-network-content' ) . '" value="' . esc_attr( $class ) . '">';
+        echo '  <label for="' . $this->get_field_id( 'class' ) . '" class="class_label">' . __( 'Class', 'anp-network-content' ) . '</label>';
+        echo '  <input type="text" id="' . $this->get_field_id( 'class' ) . '" name="' . $this->get_field_name( 'class' ) . '" class="widefat" placeholder="' . esc_attr__( 'Enter Class', 'anp-network-content' ) . '" value="' . esc_attr( $class ) . '">';
         echo '</p>';
 
         // Show meta
         echo '<p>';
-        echo '  <label for="' . $this->get_field_id( 'show_meta' ) . '" class="show_meta_label">' . __( 'Show Meta', 'glocal-network-content' ) . '</label>';
-        echo '  <input type="checkbox" id="' . $this->get_field_id( 'show_meta' ) . '" name="' . $this->get_field_name( 'show_meta' ) . '" class="widefat" placeholder="' . esc_attr__( '', 'glocal-network-content' ) . '" value="1" ' . checked( $show_meta, true, false ) . '>';        
+        echo '  <label for="' . $this->get_field_id( 'show_meta' ) . '" class="show_meta_label">' . __( 'Show Meta', 'anp-network-content' ) . '</label>';
+        echo '  <input type="checkbox" id="' . $this->get_field_id( 'show_meta' ) . '" name="' . $this->get_field_name( 'show_meta' ) . '" class="widefat" placeholder="' . esc_attr__( '', 'anp-network-content' ) . '" value="1" ' . checked( $show_meta, true, false ) . '>';        
         echo '</p>';
 
         // Excerpt Length
         echo '<p>';
-        echo '  <label for="' . $this->get_field_id( 'excerpt_length' ) . '" class="excerpt_length_label">' . __( 'Excerpt Length', 'glocal-network-content' ) . '</label>';
-        echo '  <input type="number" id="' . $this->get_field_id( 'excerpt_length' ) . '" name="' . $this->get_field_name( 'excerpt_length' ) . '" class="widefat" placeholder="' . esc_attr__( '0-100', 'glocal-network-content' ) . '" value="' . esc_attr( $excerpt_length ) . '">';
+        echo '  <label for="' . $this->get_field_id( 'excerpt_length' ) . '" class="excerpt_length_label">' . __( 'Excerpt Length', 'anp-network-content' ) . '</label>';
+        echo '  <input type="number" id="' . $this->get_field_id( 'excerpt_length' ) . '" name="' . $this->get_field_name( 'excerpt_length' ) . '" class="widefat" placeholder="' . esc_attr__( '0-100', 'anp-network-content' ) . '" value="' . esc_attr( $excerpt_length ) . '">';
         echo '</p>';
 
         // Show Site Name
         echo '<p>';
-        echo '  <label for="' . $this->get_field_id( 'show_site_name' ) . '" class="show_site_name_label">' . __( 'Show Site Name', 'glocal-network-content' ) . '</label>';
-        echo '  <input type="checkbox" id="' . $this->get_field_id( 'show_site_name' ) . '" name="' . $this->get_field_name( 'show_site_name' ) . '" class="widefat" placeholder="' . esc_attr__( '', 'glocal-network-content' ) . '" value="1" ' . checked( $show_site_name, true, false ) . '>';
+        echo '  <label for="' . $this->get_field_id( 'show_site_name' ) . '" class="show_site_name_label">' . __( 'Show Site Name', 'anp-network-content' ) . '</label>';
+        echo '  <input type="checkbox" id="' . $this->get_field_id( 'show_site_name' ) . '" name="' . $this->get_field_name( 'show_site_name' ) . '" class="widefat" placeholder="' . esc_attr__( '', 'anp-network-content' ) . '" value="1" ' . checked( $show_site_name, true, false ) . '>';
         echo '</p>';
 
     }
