@@ -6,9 +6,9 @@ class ANP_Network_Sites_Widget extends WP_Widget {
 
 		parent::__construct(
 			'network-sites-list',
-			__( 'Network Sites', 'glocal-network-content' ),
+			__( 'Network Sites', 'anp-network-content' ),
 			array(
-				'description' => __( 'Display list of sites in your network.', 'glocal-network-content' ),
+				'description' => __( 'Display list of sites in your network.', 'anp-network-content' ),
 				'classname'   => 'network-sites-list',
 			)
 		);
@@ -53,32 +53,32 @@ class ANP_Network_Sites_Widget extends WP_Widget {
 
 		// Form fields
 		echo '<p>';
-		echo '	<label for="title" class="title_label">' . __( 'Title', 'glocal-network-content' ) . '</label>';
-		echo '	<input type="text" id="' . $this->get_field_id( 'title' ) . '" name="' . $this->get_field_name( 'title' ) . '" class="widefat" placeholder="' . esc_attr__( 'Enter Widget Title', 'glocal-network-content' ) . '" value="' . esc_attr( $title ) . '">';
+		echo '	<label for="title" class="title_label">' . __( 'Title', 'anp-network-content' ) . '</label>';
+		echo '	<input type="text" id="' . $this->get_field_id( 'title' ) . '" name="' . $this->get_field_name( 'title' ) . '" class="widefat" placeholder="' . esc_attr__( 'Enter Widget Title', 'anp-network-content' ) . '" value="' . esc_attr( $title ) . '">';
 		echo '</p>';
 
 		echo '<p>';
-		echo '	<label for="number_sites" class="number_sites_label">' . __( 'Number of Sites', 'glocal-network-content' ) . '</label>';
-		echo '	<input type="number" id="' . $this->get_field_id( 'number_sites' ) . '" name="' . $this->get_field_name( 'number_sites' ) . '" class="widefat" placeholder="' . esc_attr__( '0-100', 'glocal-network-content' ) . '" value="' . esc_attr( $number_sites ) . '">';
+		echo '	<label for="number_sites" class="number_sites_label">' . __( 'Number of Sites', 'anp-network-content' ) . '</label>';
+		echo '	<input type="number" id="' . $this->get_field_id( 'number_sites' ) . '" name="' . $this->get_field_name( 'number_sites' ) . '" class="widefat" placeholder="' . esc_attr__( '0-100', 'anp-network-content' ) . '" value="' . esc_attr( $number_sites ) . '">';
 		echo '</p>';
 
 		echo '<p>';
-		echo '	<label for="exclude_sites" class="exclude_sites_label">' . __( 'Exclude Sites', 'glocal-network-content' ) . '</label>';
+		echo '	<label for="exclude_sites" class="exclude_sites_label">' . __( 'Exclude Sites', 'anp-network-content' ) . '</label>';
 		echo '	<select id="' . $this->get_field_id( 'exclude_sites' ) . '[]" name="' . $this->get_field_name( 'exclude_sites' ) . '" class="widefat">';
-		echo '		<option value="value" ' . selected( $exclude_sites, 'value', false ) . '> ' . __( 'label', 'glocal-network-content' );
+		echo '		<option value="value" ' . selected( $exclude_sites, 'value', false ) . '> ' . __( 'label', 'anp-network-content' );
 		echo '	</select>';
 		echo '</p>';
 
 		echo '<p>';
-		echo '	<label for="sort_by" class="sort_by_label">' . __( 'Sort By', 'glocal-network-content' ) . '</label>';
+		echo '	<label for="sort_by" class="sort_by_label">' . __( 'Sort By', 'anp-network-content' ) . '</label>';
 		echo '	<select id="' . $this->get_field_id( 'sort_by' ) . '" name="' . $this->get_field_name( 'sort_by' ) . '" class="widefat">';
-		echo '		<option value="blogname" ' . selected( $sort_by, 'blogname', false ) . '> ' . __( 'Alphabetical, last_updated', 'glocal-network-content' );
+		echo '		<option value="blogname" ' . selected( $sort_by, 'blogname', false ) . '> ' . __( 'Alphabetical, last_updated', 'anp-network-content' );
 		echo '	</select>';
 		echo '</p>';
 
 		echo '<p>';
-		echo '	<label for="default_image" class="default_image_label">' . __( 'Default Image', 'glocal-network-content' ) . '</label>';
-		echo '	<input type="text" id="' . $this->get_field_id( 'default_image' ) . '" name="' . $this->get_field_name( 'default_image' ) . '" class="widefat" placeholder="' . esc_attr__( 'Enter path/url of default image', 'glocal-network-content' ) . '" value="' . esc_attr( $default_image ) . '">';
+		echo '	<label for="default_image" class="default_image_label">' . __( 'Default Image', 'anp-network-content' ) . '</label>';
+		echo '	<input type="text" id="' . $this->get_field_id( 'default_image' ) . '" name="' . $this->get_field_name( 'default_image' ) . '" class="widefat" placeholder="' . esc_attr__( 'Enter path/url of default image', 'anp-network-content' ) . '" value="' . esc_attr( $default_image ) . '">';
 		echo '</p>';
 
 	}

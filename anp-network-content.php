@@ -6,7 +6,7 @@
  * @author    Pea, Glocal
  * @license   GPL-2.0+
  * @link      http://glocal.coop
- * @since     1.0.1
+ * @since     1.5.0
  * @package   ANP_Network_Content
  */
 
@@ -15,7 +15,7 @@ Plugin Name: Activist Network Content
 Description: Widgets and shortcode that display network content on the site.
 Author: Pea Glocal
 Author URI: http://glocal.coop
-Version: 1.0.1
+Version: 1.5.0
 License: GPLv3
 */
 
