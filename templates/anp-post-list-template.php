@@ -39,7 +39,7 @@ if($show_excerpt) {
 }
 if($show_meta) {
 	$html .= '<div class="entry-meta"><span class="meta-label">' . __( 'Category', 'anp-network-content' ) . '</span>';
-	$html .= ( isset( $post_categories ) ) ? '<div class="category tags">' . $post_categories . '</div>' : '';
+	$html .= ( isset( $post_categories ) ) ? '<span class="category tags">' . $post_categories . '</span>' : '';
 	$html .= '</div>';
 }
 $html .= '</li>';

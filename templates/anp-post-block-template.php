@@ -48,7 +48,7 @@ $html .= '</div>';
 if($show_meta) {
 	$html .= '<footer class="entry-footer">';
 	$html .= '<div class="entry-meta"><span class="meta-label">' . __( 'Category', 'anp-network-content' ) . '</span>';
-	$html .= '<div class="category cat-links tags">' . $post_categories . '</div>';
+	$html .= '<span class="category cat-links tags">' . $post_categories . '</span>';
 	$html .= '</div>';
 	$html .= '</footer>';
 }

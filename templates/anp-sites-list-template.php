@@ -18,7 +18,7 @@ $html .= '</a>';
 $html .= '</h3>';
 $html .= '</header>';
 if($show_meta) {
-	$html .= '<div class="entry-content">';
+	$html .= '<div class="entry-meta">';
 
 	$html .= '<span class="meta-label">' . __( 'Last Updated', 'anp-network-content' ) . '</span> <time>';
 	$html .= date_i18n( get_option( 'date_format' ), strtotime( $site['last_updated'] ) );
