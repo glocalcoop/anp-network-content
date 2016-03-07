@@ -18,7 +18,7 @@
 if(! function_exists( 'load_highlight_styles' ) ) {
 
     function load_highlight_styles() {    
-        wp_enqueue_style( 'glocal-network-posts', ANP_NETWORK_CONTENT_PLUGIN_URL . '/stylesheets/css/style.min.css' );
+        wp_enqueue_style( 'anp-network-posts', ANP_NETWORK_CONTENT_PLUGIN_URL . 'stylesheets/css/style.min.css' );
     }
 
     add_action('wp_enqueue_scripts','load_highlight_styles', 200);
