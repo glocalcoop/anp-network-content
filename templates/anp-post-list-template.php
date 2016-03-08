@@ -6,7 +6,7 @@
 
 $html .= '<li class="type-post post-item siteid-' . $post_detail['site_id'] . '">';
 $html .= '<header class="entry-header">';
-if($show_thumbnail && $post_detail['post_image']) {
+if( !empty( $show_thumbnail ) && !empty( $post_detail['post_image'] ) ) {
 	//Show image
 	$html .= '<a href="' . esc_url( $post_detail['permalink'] ) . '" class="post-thumbnail">';
 	$html .= '<img class="attachment-post-thumbnail wp-post-image item-image" src="' . $post_detail['post_image'] . '">';
@@ -19,9 +19,9 @@ $html .= '</a>';
 $html .= '</h4>';
 $html .= '</header>';
 
-if($show_meta) {
+if( !empty( $show_meta ) ) {
 	$html .= '<div class="entry-meta">';
-	if($show_site_name) {
+	if( !empty( $show_site_name ) ) {
 		$html .= '<span class="site-name"><span class="meta-label">' . __( 'Posted In', 'anp-network-content' ) . '</span> <a href="' . esc_url( $post_detail['site_link'] ) . '">';
 		$html .= $post_detail['site_name'];
 		$html .= '</a></span>';
@@ -34,12 +34,12 @@ if($show_meta) {
 	$html .= '</a></span>';
 	$html .= '</div>';
 }
-if($show_excerpt) {
+if( !empty( $show_excerpt ) ) {
 	$html .= '<div class="entry-content" itemprop="articleBody">' . $post_detail['post_excerpt'] . '</div>';
 }
-if($show_meta) {
+if( !empty( $show_meta ) ) {
 	$html .= '<div class="entry-meta"><span class="meta-label">' . __( 'Category', 'anp-network-content' ) . '</span>';
-	$html .= ( isset( $post_categories ) ) ? '<span class="category tags">' . $post_categories . '</span>' : '';
+	$html .= ( !empty( $post_categories ) ) ? '<span class="category tags">' . $post_categories . '</span>' : '';
 	$html .= '</div>';
 }
 $html .= '</li>';

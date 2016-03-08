@@ -7,7 +7,7 @@
 $html .= '<article id="post-' . $post_id . '" class="post hentry list-item" role="article">';
 
 $html .= '<header class="entry-header">';
-if($show_thumbnail && $post_detail['post_image']) {
+if( !empty( $show_thumbnail ) && !empty( $post_detail['post_image'] ) ) {
 	//Show image
 	$html .= '<div class="item-image thumbnail">';
 	$html .= '<a href="' . esc_url( $post_detail['permalink'] ) . '" class="post-thumbnail">';
@@ -21,10 +21,10 @@ $html .= $post_detail['post_title'];
 $html .= '</a>';
 $html .= '</h3>';
 
-if($show_meta) {
+if( !empty( $show_meta ) ) {
 	$html .= '<div class="entry-meta">';
 
-	if($show_site_name) {
+	if( !empty( $show_site_name ) ) {
 		$html .= '<span class="site-name"><span class="meta-label">' . __( 'Posted In', 'anp-network-content' ) . '</span> <a href="' . esc_url( $post_detail['site_link'] ) . '">';
 		$html .= $post_detail['site_name'];
 		$html .= '</a></span>';
@@ -45,7 +45,7 @@ $html .= '<div class="entry-content">';
 $html .= $post_detail['post_excerpt'];
 $html .= '</div>';
 
-if($show_meta) {
+if( !empty( $show_meta ) ) {
 	$html .= '<footer class="entry-footer">';
 	$html .= '<div class="entry-meta"><span class="meta-label">' . __( 'Category', 'anp-network-content' ) . '</span>';
 	$html .= '<span class="category cat-links tags">' . $post_categories . '</span>';
