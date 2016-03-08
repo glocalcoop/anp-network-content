@@ -13,8 +13,10 @@
 
 /************* GET CONTENT FUNCTIONS *****************/
 
-// Input: array of user inputs and array of default values
-// Output: merged array of $settings
+/**
+ * Input: array of user inputs and array of default values
+ * Output: merged array of $settings
+ */
 function get_merged_settings( $user_selections_array, $default_values_array ) {
 
     $parameters = $user_selections_array;
@@ -34,17 +36,15 @@ function get_merged_settings( $user_selections_array, $default_values_array ) {
         } 
         
     }
-
-    // echo '<pre> get_merged_settings $settings ';
-    // var_dump( $settings );
-    // echo '</pre>';
     
     return $settings;
 
 }
 
-// Input: parameters array
-// Output: array of sites with site information
+/**
+ * Input: parameters array
+ * Output: array of sites with site information
+ */
 function get_sites_list( $options_array ) {
 
     $settings = $options_array;
@@ -70,7 +70,7 @@ function get_sites_list( $options_array ) {
     $sites = wp_get_sites( $siteargs );
 
     // CALL EXCLUDE SITES FUNCTION
-    $sites = ( isset( $exclude_sites ) && null != $exclude_sites ) ? exclude_sites( $exclude_sites, $sites ) : $sites;
+    $sites = ( !empty( $exclude_sites ) ) ? exclude_sites( $exclude_sites, $sites ) : $sites;
     
     $site_list = array();
     
@@ -105,20 +105,16 @@ function get_sites_list( $options_array ) {
         $site_list[$site_id]['recent_post'] = get_most_recent_post( $site_id );
     
     }
-
-    // echo '<pre>get_sites_list $site_list ';
-    // var_dump( $site_list );
-    // echo '</pre>';
     
     return $site_list;
     
 }
 
-// Inputs: exclude array and sites array
-// Output: array of sites, excluding those specfied in parameters
+/**
+ * Inputs: exclude array and sites array
+ * Output: array of sites, excluding those passed in function
+ */
 function exclude_sites( $exclude_array ) {
-
-    $exclude = $exclude_array;
 
     // Site statuses to include
     $siteargs = array( 
@@ -135,33 +131,23 @@ function exclude_sites( $exclude_array ) {
         $siteargs = apply_filters( 'anp_network_exclude_sites_arguments', $siteargs );
     }
 
-    //var_dump( $siteargs );
-
     // Get a list of sites
     $sites = wp_get_sites( $siteargs );
 
-    // Remove site that are in the exclude list
-    for( $i = 0; $i < count( $sites ); $i++ ) {
+    $exclude = ( !is_array( $exclude_array ) ) ? explode( ',', $exclude_array ) : $exclude_array ;
 
-        if( in_array( $sites[$i]['blog_id'], $exclude ) ) {
-           
-            array_splice( $sites, $i, 1 );
-
-        }
-
-    }
-
-    // echo '<pre>$sites ';
-    // var_dump( $sites );
-    // echo '</pre>';
-
+    $sites = array_filter( $sites, function( $site ) use ( $exclude ) {
+        return !in_array( $site['blog_id'], $exclude );
+    } );
 
     return $sites;
 
 }
 
-// Inputs: array of sites and parameters array
-// Output: single array of posts with site information, sorted by post_date
+/**
+ * Inputs: array of sites and parameters array
+ * Output: single array of posts with site information, sorted by post_date
+ */
 function get_posts_list( $sites_array, $options_array ) {
 
     $sites = $sites_array;
@@ -169,10 +155,6 @@ function get_posts_list( $sites_array, $options_array ) {
 
     // Make each parameter as its own variable
     extract( $settings, EXTR_SKIP );
-
-    // echo '<pre>get_posts_list $settings ';
-    // var_dump( $settings );
-    // echo '</pre>';
 
     $post_list = array();
 
@@ -217,8 +199,10 @@ function get_posts_list( $sites_array, $options_array ) {
 
 }
 
-// Input: site id and parameters array
-// Ouput: array of posts for site
+/**
+ * Input: site id and parameters array
+ * Ouput: array of posts for site
+ */
 function get_sites_posts( $site_id, $options_array ) {
     
     $site_id = $site_id;
@@ -278,10 +262,7 @@ function get_sites_posts( $site_id, $options_array ) {
 
     }
 
-    // echo '<pre>$post_args ';
-    // var_dump( $post_args );
-    // echo '</pre>';
-    
+
     $recent_posts = wp_get_recent_posts( $post_args );
 
     // Put all the posts in a single array
@@ -360,10 +341,6 @@ function get_sites_posts( $site_id, $options_array ) {
             $post_list[$prefix]['categories'][] = $cat->name;
         }
 
-        // echo '<pre>get_sites_posts $post_list ';
-        // var_dump( $post_list );
-        // echo '</pre>';
-
         return $post_list;
 
     }
@@ -371,8 +348,10 @@ function get_sites_posts( $site_id, $options_array ) {
     
 }
 
-// Input: site_id
-// Output: array post data for single post
+/**
+ * Input: site_id
+ * Output: array post data for single post
+ */
 function get_most_recent_post( $site_id ) {
 
     $site_id = $site_id;
@@ -414,10 +393,10 @@ function get_most_recent_post( $site_id ) {
 }
 
 
-
-// Input: $sites and $taxonomy
-// Output: new array with unique taxonomy term slugs and names
-
+/**
+ * Input: $sites and $taxonomy
+ * Output: new array with unique taxonomy term slugs and names
+ */
 function get_sitewide_taxonomy_terms( $taxonomy, $exclude_sites = null ) {
 
     // Site statuses to include
@@ -473,6 +452,37 @@ function get_sitewide_taxonomy_terms( $taxonomy, $exclude_sites = null ) {
     $term_list = array_unique( $term_list );
 
     return $term_list;
+
+}
+
+/**
+ * Custom Event Meta
+ */
+if( !function_exists( 'anp_get_event_meta_list' ) ) {
+
+  function anp_get_event_taxonomy( $event_id = 0 ) {
+
+    $event_id = (int) ( empty( $event_id ) ? get_the_ID() : $event_id );
+
+    if( empty( $event_id ) ){ 
+      return false;
+    }
+
+    $html  = '<div class="entry-meta event-meta">';
+    $venue = get_taxonomy( 'event-venue' );
+
+    if( get_the_terms( $event_id, 'event-category' ) ) {
+      $html .= get_the_term_list( $event_id, 'event-category', '<ul class="category event-category"><li>','</li><li class="cat-item">', '</li></ul>' );
+    }
+
+    if( get_the_terms( $event_id, 'event-tag' ) && !is_wp_error( get_the_terms( $event_id, 'event-tag' ) ) ) {
+      $html .= get_the_term_list( $event_id, 'event-tag', '<ul class="event-tags tags"><li class="tag-item">','</li><li>', '</li></ul>' );
+    }
+
+    $html .='</div>';
+
+    return $html;
+  }
 
 }
 
