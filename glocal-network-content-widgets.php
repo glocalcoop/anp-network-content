@@ -22,9 +22,7 @@ function glocal_load_widgets() {
  * ANP_Network_Sites_Widget widget
  * Input: User input
  * Effect: Renders widget
- *
  */
-
 class ANP_Network_Sites_Widget extends WP_Widget {
 
     public function __construct() {
@@ -440,9 +438,7 @@ class ANP_Network_Posts_Widget extends WP_Widget {
  * Input: User input
  * Differs from Network Posts Widget by accepting $title_image and not accepting $style
  * Effect: Renders widget
- *
  */
-
 class ANP_Network_Post_Highlights_Widget extends WP_Widget {
 
     public function __construct() {
@@ -666,9 +662,7 @@ class ANP_Network_Post_Highlights_Widget extends WP_Widget {
  * Input: User input
  * Differs from Network Event Posts Widget by accepting changing post_type to event and accepting event-specific arguments
  * Effect: Renders widget
- *
  */
-
 class ANP_Network_Events_Widget extends WP_Widget {
 
     public function __construct() {

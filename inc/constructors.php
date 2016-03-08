@@ -14,9 +14,9 @@
 /************* NETWORK POSTS MAIN FUNCTION *****************/
 
 /**
-* 1/5/2016
-* Updates to allow for custom post types
-*/
+ * 1/5/2016
+ * Updates to allow for custom post types
+ */
 
 /************* Parameters *****************
     @post_type (string) - post type to display ( default: 'post' )
@@ -40,13 +40,13 @@
     Editable Templates
     ---
     Display of Network Content can be customized by adding a custom template to your theme
-    plugins/glocal-network-content/
-        anp-post-list-template.php
+    plugins/anp-network-content/
+        anp-event-block-template.php
+        anp-event-list-template.php
         anp-post-block-template.php
         anp-post-highlights-template.php
+        anp-post-list-template.php
         anp-sites-list-template.php
-        anp-event-list-template.php
-        anp-event-block-template.php
 */
 
 
@@ -111,17 +111,13 @@ function glocal_networkwide_posts_module( $parameters = [] ) {
 
     // CALL GET POSTS FUNCTION
     $posts_list = get_posts_list( $sites_list, $settings );
-    
-    // echo '<pre>$settings  ';
-    // var_dump( $settings  ) ;
-    // echo '</pre>';
 
     if( $output == 'array' ) {
         
         // Return an array
         return $posts_list;
         
-        // For testing
+        //Debug
         //return '<pre>glocal_networkwide_posts_module $posts_list ' . var_dump( $posts_list ) . '</pre>';
             
     } else {
@@ -156,21 +152,19 @@ function glocal_networkwide_sites_module( $parameters = [] ) {
 
     /** Default parameters **/
     $defaults = array( 
-        'return' => (string)'display',
+        'return' => (string) 'display',
         'number_sites' => (int) null,
-        'exclude_sites' => array( 
-            (int) 1
-        ), 
+        'exclude_sites' => array(), 
         'sort_by' => (string) 'alpha',
         'default_image' => (string) null,
         'show_meta' => (bool) False,
         'show_image' => (bool) False,
-        'id' => (string) 'network-sites-' . rand( ),
+        'id' => (string) 'network-sites-' . rand(),
         'class' => (string) 'network-sites-list',
     );
     
     // CALL MERGE FUNCTION
-    $settings = get_merged_settings( $parameters, $defaults );
+    $settings = wp_parse_args( $parameters, $defaults );
 
     // Extract each parameter as its own variable
     extract( $settings, EXTR_SKIP );
