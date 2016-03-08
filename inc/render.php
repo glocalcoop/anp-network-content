@@ -20,14 +20,6 @@ function render_html( $posts_array, $options_array ) {
     $posts_array = $posts_array;
     $settings = $options_array;
 
-    // echo '<pre>$posts_array ';
-    // var_dump( $posts_array ) ;
-    // echo '</pre>';
-
-    // echo '<pre>$options ';
-    // var_dump( $settings ) ;
-    // echo '</pre>';
-
     // Make each parameter as its own variable
     extract( $settings, EXTR_SKIP );
 
@@ -41,19 +33,6 @@ function render_html( $posts_array, $options_array ) {
 
             $rendered_html = render_list_html( $posts_array, $settings );
         }
-
-        // switch ( isset( $style ) && $style ) {
-
-        //     case 'block':
-        //         //CALL RENDER BLOCK HTML FUNCTION
-        //         $rendered_html = render_block_html( $posts_array, $settings );
-        //         break;
-            
-        //     default:
-        //         //CALL RENDER LIST HTML FUNCTION
-                
-        //         break;
-        // }
 
     } elseif( 'post' === $post_type ) {
 
@@ -94,7 +73,7 @@ function render_list_html( $posts_array, $options_array ) {
     $show_excerpt = ( filter_var( $show_excerpt, FILTER_VALIDATE_BOOLEAN ));
     $show_site_name = ( filter_var( $show_site_name, FILTER_VALIDATE_BOOLEAN ));
     
-    $html = ( isset( $style ) ) ? '<ul class="network-posts-list ' . $style . '-list">' : '<ul class="network-posts-list post-list">';
+    $html = ( isset( $style ) ) ? '<ul class="anp-network-posts ' . $style . '-list">' : '<ul class="anp-network-posts">';
 
     foreach( $posts_array as $post => $post_detail ) {
 
@@ -133,15 +112,11 @@ function render_block_html( $posts_array, $options_array ) {
     // Make each parameter as its own variable
     extract( $settings, EXTR_SKIP );
         
-    $html = '<div class="network-posts-list style-' . $style . ' ' . $post_type . '-list">';
+    $html = '<div class="anp-network-posts style-' . $style . ' ' . $post_type . '-list">';
 
     foreach( $posts_array as $post => $post_detail ) {
 
         global $post;
-
-        // echo '<pre>render_block_html $post_detail ';
-        // var_dump( $post_detail );
-        // echo '</pre>';
         
         $post_id = $post_detail['post_id'];
         $post_categories = ( isset( $post_detail['categories'] ) ) ? implode( ", ", $post_detail['categories'] ) : '';
@@ -178,7 +153,7 @@ function render_highlights_html($posts_array, $options_array) {
     // Extract each parameter as its own variable
     extract( $settings, EXTR_SKIP );
         
-    $title_image = ($title_image) ? 'style="background-image:url(' . $title_image . ')"' : '';
+    $title_image = ( isset( $title_image ) ) ? 'style="background-image:url(' . $title_image . ')"' : '';
     
     $html = '';
     
