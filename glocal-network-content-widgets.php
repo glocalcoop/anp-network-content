@@ -140,7 +140,7 @@ class ANP_Network_Sites_Widget extends WP_Widget {
         foreach( $sites as $site ) { 
             $site_id = $site['blog_id'];
             $site_name = get_blog_details( $site_id )->blogname;
-            echo '      <option id="' . $site_id . '" value="' . $site_id . '"', in_array( $site_id,  $exclude_sites) ? ' selected="selected"' : '','>' . $site_name . '</>';
+            echo '      <option id="' . $site_id . '" value="' . $site_id . '"', ( ! empty( $exclude_sites ) && in_array( $site_id,  $exclude_sites ) ) ? ' selected="selected"' : '','>' . $site_name . '</option>';
         }
 
         echo '  </select>';
@@ -335,7 +335,7 @@ class ANP_Network_Posts_Widget extends WP_Widget {
         foreach( $sites as $site ) { 
             $site_id = $site['blog_id'];
             $site_name = get_blog_details( $site_id )->blogname;
-            echo '      <option id="' . $site_id . '" value="' . $site_id . '"', in_array( $site_id,  $exclude_sites) ? ' selected="selected"' : '','>' . $site_name . '</>';
+            echo '      <option id="' . $site_id . '" value="' . $site_id . '"', ( ! empty( $exclude_sites ) && in_array( $site_id,  $exclude_sites ) ) ? ' selected="selected"' : '','>' . $site_name . '</option>';
         }
 
         echo '  </select>';
@@ -350,7 +350,7 @@ class ANP_Network_Posts_Widget extends WP_Widget {
         $categories = get_categories();
 
         foreach( $categories as $cat ) { 
-            echo '      <option id="' . $cat->slug . '" value="' . $cat->slug . '"', in_array( $cat->slug,  $include_categories) ? ' selected="selected"' : '','>' . $cat->name . '</>';
+            echo '      <option id="' . $cat->slug . '" value="' . $cat->slug . '"', ( ! empty( $include_categories ) && in_array( $cat->slug,  $include_categories ) ) ? ' selected="selected"' : '','>' . $cat->name . '</option>';
         }
 
         echo '  </select>';
@@ -564,12 +564,12 @@ class ANP_Network_Post_Highlights_Widget extends WP_Widget {
             'deleted'    => 0,
         );
 
-        $sites = wp_get_sites($siteargs);
+        $sites = wp_get_sites( $siteargs );
 
         foreach( $sites as $site ) { 
             $site_id = $site['blog_id'];
             $site_name = get_blog_details( $site_id )->blogname;
-            echo '      <option id="' . $site_id . '" value="' . $site_id . '"', in_array( $site_id,  $exclude_sites) ? ' selected="selected"' : '','>' . $site_name . '</>';
+            echo '      <option id="' . $site_id . '" value="' . $site_id . '"', ( ! empty( $exclude_sites ) && in_array( $site_id,  $exclude_sites ) ) ? ' selected="selected"' : '','>' . $site_name . '</option>';
         }
 
         echo '  </select>';
@@ -584,7 +584,7 @@ class ANP_Network_Post_Highlights_Widget extends WP_Widget {
         $categories = get_categories();
 
         foreach( $categories as $cat ) { 
-            echo '      <option id="' . $cat->slug . '" value="' . $cat->slug . '"', in_array( $cat->slug,  $include_categories) ? ' selected="selected"' : '','>' . $cat->name . '</>';
+            echo '      <option id="' . $cat->slug . '" value="' . $cat->slug . '"', ( ! empty( $include_categories ) && in_array( $cat->slug,  $include_categories ) ) ? ' selected="selected"' : '','>' . $cat->name . '</option>';
         }
 
         echo '  </select>';
@@ -785,7 +785,7 @@ class ANP_Network_Events_Widget extends WP_Widget {
         foreach( $sites as $site ) { 
             $site_id = $site['blog_id'];
             $site_name = get_blog_details( $site_id )->blogname;
-            echo '      <option id="' . $site_id . '" value="' . $site_id . '"', ( !empty( $exclude_sites ) && in_array( $site_id,  $exclude_sites) )  ? ' selected="selected"' : '','>' . $site_name . '</>';
+            echo '      <option id="' . $site_id . '" value="' . $site_id . '"', ( !empty( $exclude_sites ) && in_array( $site_id,  $exclude_sites) )  ? ' selected="selected"' : '','>' . $site_name . '</option>';
         }
 
         echo '  </select>';
@@ -800,7 +800,7 @@ class ANP_Network_Events_Widget extends WP_Widget {
         $categories = get_sitewide_taxonomy_terms( 'event-category' );
 
         foreach( $categories as $key => $value ) { 
-            echo '      <option id="' . $key . '" value="' . $key . '"', ( !empty( $include_event_categories ) && in_array( $key,  $include_event_categories) ) ? ' selected="selected"' : '','>' . $value . '</>';
+            echo '      <option id="' . $key . '" value="' . $key . '"', ( !empty( $include_event_categories ) && in_array( $key,  $include_event_categories) ) ? ' selected="selected"' : '','>' . $value . '</option>';
         }
 
         echo '  </select>';
@@ -816,7 +816,7 @@ class ANP_Network_Events_Widget extends WP_Widget {
         $tags = get_sitewide_taxonomy_terms( 'event-tag' );
 
         foreach( $tags as $key => $value ) { 
-            echo '      <option id="' . $key . '" value="' . $key . '"', ( !empty( $include_event_tags ) && in_array( $key,  $include_event_tags ) ) ? ' selected="selected"' : '','>' . $value . '</>';
+            echo '      <option id="' . $key . '" value="' . $key . '"', ( !empty( $include_event_tags ) && in_array( $key,  $include_event_tags ) ) ? ' selected="selected"' : '','>' . $value . '</option>';
         }
 
         echo '  </select>';
