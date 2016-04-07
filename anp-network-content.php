@@ -12,10 +12,10 @@
 
 /*
 Plugin Name: Activist Network Content
-Description: Widgets and shortcode that display network content on the site.
-Author: Pea Glocal
+Description: Widgets and shortcodes that display network content on your multi-site install.
+Author: Pea, Glocal
 Author URI: http://glocal.coop
-Version: 1.6.0
+Version: 1.6.1
 License: GPLv3
 */
 
