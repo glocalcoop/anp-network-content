@@ -69,9 +69,9 @@ function render_list_html( $posts_array, $options_array ) {
     extract( $settings, EXTR_SKIP );
     
     // Convert strings to booleans
-    $show_meta = ( filter_var( $show_meta, FILTER_VALIDATE_BOOLEAN ) );
-    $show_excerpt = ( filter_var( $show_excerpt, FILTER_VALIDATE_BOOLEAN ));
-    $show_site_name = ( filter_var( $show_site_name, FILTER_VALIDATE_BOOLEAN ));
+    $show_meta = ( ! empty( $show_meta ) ) ? filter_var( $show_meta, FILTER_VALIDATE_BOOLEAN ) : '';
+    $show_excerpt = ( ! empty( $show_excerpt ) ) ? filter_var( $show_excerpt, FILTER_VALIDATE_BOOLEAN ) : '';
+    $show_site_name = ( ! empty( $show_excerpt ) ) ? filter_var( $show_site_name, FILTER_VALIDATE_BOOLEAN ) : '';
     
     $html = ( isset( $style ) ) ? '<ul class="anp-network-posts ' . $style . '-list">' : '<ul class="anp-network-posts">';
 
