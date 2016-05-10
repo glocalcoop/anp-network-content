@@ -4,7 +4,7 @@ Contributors: misfist
 Tags: multi-site, content
 Requires at least: 4.4
 Tested up to: 4.4.1
-Stable tag: 1.6.1
+Stable tag: 1.6.2
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -31,5 +31,7 @@ Display using a shortcode.
 `[anp_network_sites number_sites="20" exclude_sites="1,2" sort_by="registered" default_image="/path/to/image.jpg" show_meta=1 show_image=1 id="unique-id" class="class-name"]`
 
 ### Revisions
+
+1.6.2 - Added Shortcake UI shortcodes to replace quicktags
 
 1.6.1 - Fixed PHP warnings in `inc/render.php` and `inc/shortcodes.php`
