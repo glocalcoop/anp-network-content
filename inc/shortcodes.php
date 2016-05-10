@@ -16,14 +16,16 @@
 
 // Inputs: optional parameters
 // Output: rendered HTML list of posts
-function glocal_networkwide_posts_shortcode( $atts, $content = null ) {
+function glocal_networkwide_posts_shortcode( $atts ) {
 
     // Attributes
     extract( shortcode_atts(
         array(), $atts )
     );
 
-    if(function_exists('glocal_networkwide_posts_module')) {
+    $atts['style'] = 'normal';
+
+    if( function_exists( 'glocal_networkwide_posts_module' ) ) {
         return glocal_networkwide_posts_module( $atts );
     }
     
@@ -42,12 +44,14 @@ function glocal_networkwide_events_shortcode( $atts, $content = null ) {
         array(), $atts )
     );
 
-    if(function_exists('glocal_networkwide_posts_module')) {
+    $atts['post_type'] = 'event';
+
+    if( function_exists( 'glocal_networkwide_posts_module' ) ) {
         return glocal_networkwide_posts_module( $atts );
     }
     
 }
-add_shortcode( 'anp_network_posts', 'glocal_networkwide_posts_shortcode' );
+add_shortcode( 'anp_network_events', 'glocal_networkwide_events_shortcode' );
 
 
 //[anp_network_sites number_sites="20" exclude_sites="1,2" sort_by="registered" default_image="/path/to/image.jpg" show_meta=1 show_image=1 id="unique-id" class="class-name"]
