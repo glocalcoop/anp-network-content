@@ -42,8 +42,9 @@ include_once( ANP_NETWORK_CONTENT_PLUGIN_DIR . 'inc/get-content.php' );
 include_once( ANP_NETWORK_CONTENT_PLUGIN_DIR . 'inc/helpers.php' );
 include_once( ANP_NETWORK_CONTENT_PLUGIN_DIR . 'inc/render.php' );
 include_once( ANP_NETWORK_CONTENT_PLUGIN_DIR . 'inc/shortcodes.php' );
+include_once( ANP_NETWORK_CONTENT_PLUGIN_DIR . 'inc/shortcake.php' );
 include_once( ANP_NETWORK_CONTENT_PLUGIN_DIR . 'inc/enqueue.php' );
 
 include_once( ANP_NETWORK_CONTENT_PLUGIN_DIR . 'glocal-network-content-widgets.php' );
 
-include_once( ANP_NETWORK_CONTENT_PLUGIN_DIR . 'glocal-network-widgets-tinymce.php' );
+// include_once( ANP_NETWORK_CONTENT_PLUGIN_DIR . 'glocal-network-widgets-tinymce.php' );
