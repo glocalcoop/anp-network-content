@@ -4,7 +4,7 @@
 * Override by placing a file called plugins/glocal-network-content/anp-post-block-template.php in your active theme
 */ 
 
-$html .= '<article id="post-' . $post_id . '" class="post hentry list-item" role="article">';
+$html .= '<article id="post-' . $post_id . '" class="post entry hentry" role="article">';
 
 $html .= '<header class="entry-header">';
 if( !empty( $show_thumbnail ) && !empty( $post_detail['post_image'] ) ) {
@@ -47,7 +47,7 @@ $html .= '</div>';
 
 if( !empty( $show_meta ) ) {
 	$html .= '<footer class="entry-footer">';
-	$html .= '<div class="entry-meta"><span class="meta-label">' . __( 'Category', 'anp-network-content' ) . '</span>';
+	$html .= '<div class="entry-meta">';
 	$html .= '<span class="category cat-links tags">' . $post_categories . '</span>';
 	$html .= '</div>';
 	$html .= '</footer>';

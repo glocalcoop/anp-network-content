@@ -9,7 +9,7 @@ $venue_name = $post_detail['event_venue']['venue_name'];
 $venue_link = $post_detail['event_venue']['venue_link'];
 $venue_address = $post_detail['event_venue']['venue_location'];
 
-$post_class = ( $post_detail['post_class'] ) ? $post_detail['post_class'] : 'post event event-list hentry list-item';
+$post_class = ( $post_detail['post_class'] ) ? $post_detail['post_class'] : 'post entry event event-item hentry';
 
 $html .= '<article id="post-' . $post_id . '" class="event ' . $post_class . '" role="article">';
 
