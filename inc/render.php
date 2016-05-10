@@ -23,35 +23,20 @@ function render_html( $posts_array, $options_array ) {
     // Make each parameter as its own variable
     extract( $settings, EXTR_SKIP );
 
-    if( 'event' === $post_type ) {
+    if( !empty( $style ) ) { 
 
-        if( isset( $style ) && $style ) {
+        if( 'list'  == $style ) {
 
-            $rendered_html = render_block_html( $posts_array, $settings );
+            $rendered_html = render_list_html( $posts_array, $settings );
 
         } else {
 
-            $rendered_html = render_list_html( $posts_array, $settings );
+           $rendered_html = render_block_html( $posts_array, $settings ); 
+
         }
+    } else {
 
-    } elseif( 'post' === $post_type ) {
-
-        switch ( isset( $style ) && $style ) {
-            case 'highlights':
-                //CALL RENDER HIGHLIGHTS HTML FUNCTION
-                $rendered_html = render_highlights_html( $posts_array, $settings );
-                break;
-
-            case 'block':
-                //CALL RENDER BLOCK HTML FUNCTION
-                $rendered_html = render_block_html( $posts_array, $settings );
-                break;
-            
-            default:
-                //CALL RENDER LIST HTML FUNCTION
-                $rendered_html = render_list_html( $posts_array, $settings );
-                break;
-        }
+        $rendered_html = render_block_html( $posts_array, $settings );
 
     }
 
