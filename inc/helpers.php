@@ -68,6 +68,8 @@ function sort_sites_by_most_active($sites_array) {
 function sort_array_by_key($array, $key, $order='ASC') {
     $a = $array;
     $subkey = $key;
+    $b = [];
+    $c = [];
     
     foreach($a as $k => $v) {
         $b[$k] = strtolower($v[$subkey]);
