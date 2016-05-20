@@ -25,7 +25,7 @@ if( !empty( $show_meta ) ) {
 	$html .= '</time>';
 
 	$html .= '<div class="recent-post">';
-	$html .= '<span class="meta-label">' . __( 'Last Recent Post', 'anp-network-content' ) . '</span> ';
+	$html .= '<span class="meta-label">' . __( 'Latest Post', 'anp-network-content' ) . '</span> ';
 	$html .= '<a href="'. esc_url( $site['recent_post']['permalink'] ) .'">';
 	$html .= $site['recent_post']['post_title'];
 	$html .= '</a>';

@@ -4,7 +4,7 @@ Contributors: misfist
 Tags: multi-site, content
 Requires at least: 4.4
 Tested up to: 4.4.1
-Stable tag: 1.6.3
+Stable tag: 1.6.4
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -31,6 +31,14 @@ Display using a shortcode.
 `[anp_network_sites number_sites="20" exclude_sites="1,2" sort_by="registered" default_image="/path/to/image.jpg" show_meta=1 show_image=1 id="unique-id" class="class-name"]`
 
 ### Revisions
+
+= 1.6.4 May 19, 2016 =
+
+* Changed thumbnail size to 'medium'
+* Removed $style from listing class
+* Changed thumbnail markup classes to `.entry-image` and `.entry-image-link`
+* Changed 'Last Recent Post' heading to 'Latest Post'
+* Commented out Network Posts Highlight widget since it's no longer needed
 
 1.6.3 - [bugfix] Fixed PHP warning in `sort` function
 

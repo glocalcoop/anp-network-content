@@ -58,7 +58,7 @@ function render_list_html( $posts_array, $options_array ) {
     $show_excerpt = ( ! empty( $show_excerpt ) ) ? filter_var( $show_excerpt, FILTER_VALIDATE_BOOLEAN ) : '';
     $show_site_name = ( ! empty( $show_excerpt ) ) ? filter_var( $show_site_name, FILTER_VALIDATE_BOOLEAN ) : '';
     
-    $html = ( isset( $style ) ) ? '<ul class="anp-network-posts ' . $style . '-list">' : '<ul class="anp-network-posts">';
+    $html = '<ul class= class="anp-network-posts ' . $post_type . '-list">';
 
     foreach( $posts_array as $post => $post_detail ) {
 
@@ -97,7 +97,7 @@ function render_block_html( $posts_array, $options_array ) {
     // Make each parameter as its own variable
     extract( $settings, EXTR_SKIP );
         
-    $html = '<div class="anp-network-posts style-' . $style . ' ' . $post_type . '-list">';
+    $html = '<div class="anp-network-posts ' . $post_type . '-list">';
 
     foreach( $posts_array as $post => $post_detail ) {
 

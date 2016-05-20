@@ -9,8 +9,8 @@ $html .= '<article id="post-' . $post_id . '" class="post entry hentry" role="ar
 $html .= '<header class="entry-header">';
 if( !empty( $show_thumbnail ) && !empty( $post_detail['post_image'] ) ) {
 	//Show image
-	$html .= '<div class="item-image thumbnail">';
-	$html .= '<a href="' . esc_url( $post_detail['permalink'] ) . '" class="post-thumbnail">';
+	$html .= '<div class="entry-image">';
+	$html .= '<a href="' . esc_url( $post_detail['permalink'] ) . '" class="entry-image-link">';
 	$html .= '<img class="attachment-post-thumbnail wp-post-image item-image" src="' . $post_detail['post_image'] . '">';
 	$html .= '</a>';
 	$html .= '</div>';

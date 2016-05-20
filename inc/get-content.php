@@ -281,7 +281,7 @@ function get_sites_posts( $site_id, $options_array ) {
         $post_markup_class .= ' siteid-' . $site_id;
 
         //Returns an array
-        $post_thumbnail = wp_get_attachment_image_src( get_post_thumbnail_id( $post_id ), 'thumbnail' );
+        $post_thumbnail = wp_get_attachment_image_src( get_post_thumbnail_id( $post_id ), 'medium' );
 
         if( $postdetail['post_excerpt'] ) {
             $excerpt = $postdetail['post_excerpt'];

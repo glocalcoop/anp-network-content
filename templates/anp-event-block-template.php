@@ -42,8 +42,8 @@ $html .= '</header>';
 $html .= '<div class="entry-content event-content">';
 
 if( !empty( $show_thumbnail ) && !empty( $post_detail['post_image'] ) ) {
-	$html .= '<div class="post-image event-image">';
-	$html .= '<a href="' . esc_url( $post_detail['permalink'] ) . '" class="post-thumbnail">';
+	$html .= '<div class="entry-image">';
+	$html .= '<a href="' . esc_url( $post_detail['permalink'] ) . '" class="entry-image-link">';
 	$html .= '<img class="attachment-post-thumbnail wp-post-image item-image" src="' . $post_detail['post_image'] . '">';
 	$html .= '</a>';
 	$html .= '</div>';

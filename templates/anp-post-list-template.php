@@ -8,9 +8,11 @@ $html .= '<li class="type-post post-item siteid-' . $post_detail['site_id'] . '"
 $html .= '<header class="entry-header">';
 if( !empty( $show_thumbnail ) && !empty( $post_detail['post_image'] ) ) {
 	//Show image
-	$html .= '<a href="' . esc_url( $post_detail['permalink'] ) . '" class="post-thumbnail">';
-	$html .= '<img class="attachment-post-thumbnail wp-post-image item-image" src="' . $post_detail['post_image'] . '">';
+	$html .= '<div class="entry-image">';
+	$html .= '<a href="' . esc_url( $post_detail['permalink'] ) . '" class="entry-image-link">';
+	$html .= '<img class="wp-post-image item-image" src="' . $post_detail['post_image'] . '">';
 	$html .= '</a>';
+	$html .= '</div>';
 }
 $html .= '<h4 class="entry-title">';
 $html .= '<a href="' . esc_url( $post_detail['permalink'] ) . '">';
