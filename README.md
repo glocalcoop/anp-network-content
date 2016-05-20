@@ -39,6 +39,7 @@ Display using a shortcode.
 * Changed thumbnail markup classes to `.entry-image` and `.entry-image-link`
 * Changed 'Last Recent Post' heading to 'Latest Post'
 * Commented out Network Posts Highlight widget since it's no longer needed
+* Modified event list template to be consistent with post lists
 
 1.6.3 - [bugfix] Fixed PHP warning in `sort` function
 

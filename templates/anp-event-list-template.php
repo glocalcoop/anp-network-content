@@ -15,6 +15,14 @@ $html .= '<li id="post-' . $post_id . '" class="event ' . $post_class . '" role=
 
 $html .= '<header class="entry-header">';
 
+if( !empty( $show_thumbnail ) && !empty( $post_detail['post_image'] ) ) {
+	$html .= '<div class="entry-image">';
+	$html .= '<a href="' . esc_url( $post_detail['permalink'] ) . '" class="entry-image-link">';
+	$html .= '<img class="attachment-post-thumbnail wp-post-image item-image" src="' . $post_detail['post_image'] . '">';
+	$html .= '</a>';
+	$html .= '</div>';
+}
+
 $html .= '<h3 class="entry-title event-title">';
 $html .= '<a href="' . esc_url( $post_detail['permalink'] ) . '" class="post-link">';
 $html .= $post_detail['post_title'];
@@ -40,14 +48,6 @@ $html .= '</div>';
 $html .= '</h4>';
 $html .= '</header>';
 $html .= '<div class="entry-content event-content">';
-
-if( !empty( $show_thumbnail ) && !empty( $post_detail['post_image'] ) ) {
-	$html .= '<div class="entry-image">';
-	$html .= '<a href="' . esc_url( $post_detail['permalink'] ) . '" class="entry-image-link">';
-	$html .= '<img class="attachment-post-thumbnail wp-post-image item-image" src="' . $post_detail['post_image'] . '">';
-	$html .= '</a>';
-	$html .= '</div>';
-}
 
 if( !empty( $venue_id ) ) {
 	$html .= '<div class="event-location event-venue">';
