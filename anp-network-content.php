@@ -15,7 +15,7 @@ Plugin Name: Activist Network Content
 Description: Widgets and shortcodes that display network content on your multi-site install.
 Author: Pea, Glocal
 Author URI: http://glocal.coop
-Version: 1.6.6
+Version: 1.6.7
 License: GPLv3
 */
 
@@ -45,6 +45,9 @@ include_once( ANP_NETWORK_CONTENT_PLUGIN_DIR . 'inc/shortcodes.php' );
 include_once( ANP_NETWORK_CONTENT_PLUGIN_DIR . 'inc/shortcake.php' );
 include_once( ANP_NETWORK_CONTENT_PLUGIN_DIR . 'inc/enqueue.php' );
 
-include_once( ANP_NETWORK_CONTENT_PLUGIN_DIR . 'glocal-network-content-widgets.php' );
+include_once( ANP_NETWORK_CONTENT_PLUGIN_DIR . 'inc/class-network-posts.php' );
 
-// include_once( ANP_NETWORK_CONTENT_PLUGIN_DIR . 'glocal-network-widgets-tinymce.php' );
+include_once( ANP_NETWORK_CONTENT_PLUGIN_DIR . 'inc/class-network-events.php' );
+include_once( ANP_NETWORK_CONTENT_PLUGIN_DIR . 'inc/class-network-sites.php' );
+
+include_once( ANP_NETWORK_CONTENT_PLUGIN_DIR . 'glocal-network-content-widgets.php' );
