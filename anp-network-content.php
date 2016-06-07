@@ -15,7 +15,7 @@ Plugin Name: Activist Network Content
 Description: Widgets and shortcodes that display network content on your multi-site install.
 Author: Pea, Glocal
 Author URI: http://glocal.coop
-Version: 1.6.7
+Version: 1.6.8
 License: GPLv3
 */
 
