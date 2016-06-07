@@ -4,7 +4,7 @@ Contributors: misfist
 Tags: multi-site, content
 Requires at least: 4.4
 Tested up to: 4.4.1
-Stable tag: 1.6.4
+Stable tag: 1.6.6
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -31,6 +31,14 @@ Display using a shortcode.
 `[anp_network_sites number_sites="20" exclude_sites="1,2" sort_by="registered" default_image="/path/to/image.jpg" show_meta=1 show_image=1 id="unique-id" class="class-name"]`
 
 ### Revisions
+
+= 1.6.6 June 6, 2016 =
+
+* Fixed mark-up issue causing event widget not to save Scope selections.
+
+= 1.6.5 May 21, 2016 =
+
+* Added `get_sites_select_array` function to return an array of site id => site name key value pairs for use in select
 
 = 1.6.4 May 19, 2016 =
 

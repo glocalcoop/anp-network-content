@@ -133,6 +133,7 @@ class ANP_Network_Sites_Widget extends WP_Widget {
             'archived'   => 0,
             'spam'       => 0,
             'deleted'    => 0,
+            'public'     => 1,
         );
 
         $sites = wp_get_sites($siteargs);
@@ -835,7 +836,7 @@ class ANP_Network_Events_Widget extends WP_Widget {
 
         foreach( $scopes as $key => $value ) {
 
-            echo '<option value="' . $key . '" ' . selected( $event_scope, $key, false ) . '> ' . $value;
+            echo '<option value="' . $key . '" ' . selected( $event_scope, $key, false ) . '> ' . $value . '</option>';
 
         }
 
@@ -855,16 +856,10 @@ class ANP_Network_Events_Widget extends WP_Widget {
 
         foreach( $styles as $key => $value ) {
 
-            // echo '<option value="' $key . '" '  . selected( $style, '', false ) . '> ' . $value;  
-
             echo '<option value="' . $key . '" ' . selected( $style, $key, false ) . '> ' . $value;  
 
         }
 
-
-
-        
-        // echo '<option value="block" ' . selected( $style, 'block', false ) . '> ' . __( 'Block', 'anp-network-content' );
         echo '  </select>';
         echo '</p>';
 
