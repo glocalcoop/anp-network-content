@@ -34,6 +34,7 @@ Display using a shortcode.
 
 = 1.6.11 June 20, 2016 =
 * Fixed event block display template, which was missing a closing `div` tag
+* Change `post-excerpt` class to `entry-excerpt`
 
 = 1.6.10 June 20, 2016 =
 * Fixed rendering issue causing post-type list class not to display in ul tag
