@@ -59,7 +59,7 @@ function render_list_html( $posts_array, $options_array ) {
     $show_thumbnail = ( ! empty( $show_thumbnail ) ) ? filter_var( $show_thumbnail, FILTER_VALIDATE_BOOLEAN ) : '';
     $show_site_name = ( ! empty( $show_site_name ) ) ? filter_var( $show_site_name, FILTER_VALIDATE_BOOLEAN ) : '';
     
-    $html = '<ul class= class="anp-network-posts ' . $post_type . '-list">';
+    $html = '<ul class="anp-network-posts ' . $post_type . '-list">';
 
     foreach( $posts_array as $post => $post_detail ) {
 
