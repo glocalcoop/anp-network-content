@@ -52,30 +52,32 @@ $html .= '<div class="entry-content event-content">';
 if( !empty( $venue_id ) ) {
 	$html .= '<div class="event-location event-venue">';
 
-	$html .= '<span class="location-name venue-name">';
-	$html .= '<a href="' . $venue_link . '">' . $venue_name . '</a>';
-	$html .= '</span> ';
-	$html .= '<span class="street-address">';
-	$html .= $venue_address['address'];
-	$html .= '</span> ';
-	$html .= '<span class="city-state-postalcode">';
-	$html .= '<span class="city">';
-	$html .= $venue_address['city'];
-	$html .= '</span> ';
-	$html .= '<span class="state">';
-	$html .= $venue_address['state'];
-	$html .= '</span> ';
-	$html .= '<span class="postal-code">';
-	$html .= $venue_address['postcode'];
-	$html .= '</span> ';
-	$html .= '</span>';
-	$html .= '<span class="country">';
-	$html .= $venue_address['country'];
-	$html .= '</span>';
+		$html .= '<span class="location-name venue-name">';
+		$html .= '<a href="' . $venue_link . '">' . $venue_name . '</a>';
+		$html .= '</span> ';
+		$html .= '<span class="street-address">';
+		$html .= $venue_address['address'];
+		$html .= '</span> ';
+		$html .= '<span class="city-state-postalcode">';
+		$html .= '<span class="city">';
+		$html .= $venue_address['city'];
+		$html .= '</span> ';
+		$html .= '<span class="state">';
+		$html .= $venue_address['state'];
+		$html .= '</span> ';
+		$html .= '<span class="postal-code">';
+		$html .= $venue_address['postcode'];
+		$html .= '</span> ';
+		$html .= '</span>';
+		$html .= '<span class="country">';
+		$html .= $venue_address['country'];
+		$html .= '</span>';
 
 	$html .= '</div>';
 }
-$html .= '<div class="post-excerpt" itemprop="articleBody">' . $post_detail['post_excerpt'] . '</div>';
+$html .= '<div class="entry-excerpt" itemprop="articleBody">' . $post_detail['post_excerpt'] . '</div>';
+
+$html .= '</div>';
 
 if( !empty( $show_meta ) ) {
 
@@ -93,9 +95,9 @@ if( !empty( $show_meta ) ) {
 	$html .= '</a></span>';
 
 	if( function_exists( 'anp_get_event_taxonomy' ) ) :
-	$html .= '<div class="category tags">';
-	$html .= anp_get_event_taxonomy( $post_id );
-	$html .= '</div>';
+		$html .= '<div class="category tags">';
+		$html .= anp_get_event_taxonomy( $post_id );
+		$html .= '</div>';
 	endif;
 
 	$html .= '</div>';

@@ -75,7 +75,7 @@ if( !empty( $venue_id ) ) {
 
 	$html .= '</div>';
 }
-$html .= '<div class="post-excerpt" itemprop="articleBody">' . $post_detail['post_excerpt'] . '</div>';
+$html .= '<div class="entry-excerpt" itemprop="articleBody">' . $post_detail['post_excerpt'] . '</div>';
 
 if( !empty( $show_meta ) ) {
 
@@ -93,9 +93,9 @@ if( !empty( $show_meta ) ) {
 	$html .= '</a></span>';
 
 	if( function_exists( 'anp_get_event_taxonomy' ) ) :
-	$html .= '<div class="category tags">';
-	$html .= anp_get_event_taxonomy( $post_id );
-	$html .= '</div>';
+		$html .= '<div class="category tags">';
+		$html .= anp_get_event_taxonomy( $post_id );
+		$html .= '</div>';
 	endif;
 
 	$html .= '</div>';

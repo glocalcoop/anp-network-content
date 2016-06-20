@@ -4,7 +4,7 @@ Contributors: misfist
 Tags: multi-site, content
 Requires at least: 4.4
 Tested up to: 4.4.1
-Stable tag: 1.6.10
+Stable tag: 1.6.11
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -32,9 +32,11 @@ Display using a shortcode.
 
 ### Revisions
 
+= 1.6.11 June 20, 2016 =
+* Fixed event block display template, which was missing a closing `div` tag
+
 = 1.6.10 June 20, 2016 =
 * Fixed rendering issue causing post-type list class not to display in ul tag
-
 
 = 1.6.9 June 19, 2016 =
 
