@@ -36,7 +36,7 @@ function render_html( $posts_array, $options_array ) {
         }
     } else {
 
-        $rendered_html = render_block_html( $posts_array, $settings );
+        $rendered_html = render_list_html( $posts_array, $settings );
 
     }
 
@@ -56,7 +56,8 @@ function render_list_html( $posts_array, $options_array ) {
     // Convert strings to booleans
     $show_meta = ( ! empty( $show_meta ) ) ? filter_var( $show_meta, FILTER_VALIDATE_BOOLEAN ) : '';
     $show_excerpt = ( ! empty( $show_excerpt ) ) ? filter_var( $show_excerpt, FILTER_VALIDATE_BOOLEAN ) : '';
-    $show_site_name = ( ! empty( $show_excerpt ) ) ? filter_var( $show_site_name, FILTER_VALIDATE_BOOLEAN ) : '';
+    $show_thumbnail = ( ! empty( $show_thumbnail ) ) ? filter_var( $show_thumbnail, FILTER_VALIDATE_BOOLEAN ) : '';
+    $show_site_name = ( ! empty( $show_site_name ) ) ? filter_var( $show_site_name, FILTER_VALIDATE_BOOLEAN ) : '';
     
     $html = '<ul class= class="anp-network-posts ' . $post_type . '-list">';
 
@@ -72,7 +73,7 @@ function render_list_html( $posts_array, $options_array ) {
         
         // use a template for the output so that it can easily be overridden by theme
         // check for template in active theme
-        $template = locate_template( array( ANP_NETWORK_CONTENT_PLUGIN_DIR . 'anp-' . $post_type . '-list-template.php' ) );
+        $template = locate_template( array( 'plugins/anp-network-content/anp-' . $post_type . '-list-template.php' ) );
         
         // if none found use the default template
         if ( $template == '' ) $template = ANP_NETWORK_CONTENT_PLUGIN_DIR . 'templates/anp-' . $post_type . '-list-template.php';
@@ -107,13 +108,14 @@ function render_block_html( $posts_array, $options_array ) {
         $post_categories = ( isset( $post_detail['categories'] ) ) ? implode( ", ", $post_detail['categories'] ) : '';
         
         // Convert strings to booleans
-        $show_meta = ( filter_var( $show_meta, FILTER_VALIDATE_BOOLEAN ) );
-        $show_thumbnail = ( filter_var( $show_excerpt, FILTER_VALIDATE_BOOLEAN ) );
-        $show_site_name = ( filter_var( $show_site_name, FILTER_VALIDATE_BOOLEAN ) );
+        $show_meta = ( ! empty( $show_meta ) ) ? filter_var( $show_meta, FILTER_VALIDATE_BOOLEAN ) : '';
+        $show_excerpt = ( ! empty( $show_excerpt ) ) ? filter_var( $show_excerpt, FILTER_VALIDATE_BOOLEAN ) : '';
+        $show_thumbnail = ( ! empty( $show_thumbnail ) ) ? filter_var( $show_thumbnail, FILTER_VALIDATE_BOOLEAN ) : '';
+        $show_site_name = ( ! empty( $show_site_name) ) ? filter_var( $show_site_name, FILTER_VALIDATE_BOOLEAN ) : '';
         
         // use a template for the output so that it can easily be overridden by theme
         // check for template in active theme
-        $template = locate_template( array( ANP_NETWORK_CONTENT_PLUGIN_DIR . 'anp-' . $post_type . '-block-template.php') );
+        $template = locate_template( array( 'plugins/anp-network-content/anp-' . $post_type . '-block-template.php') );
         
         // if none found use the default template
         $template = ( $template == '' ) ? ANP_NETWORK_CONTENT_PLUGIN_DIR . 'templates/anp-' . $post_type . '-block-template.php' : '';
@@ -144,7 +146,7 @@ function render_highlights_html($posts_array, $options_array) {
     
     // use a template for the output so that it can easily be overridden by theme
     // check for template in active theme
-    $template = locate_template(array( ANP_NETWORK_CONTENT_PLUGIN_DIR . 'anp-post-highlights-template.php'));
+    $template = locate_template(array( 'plugins/anp-network-content/anp-post-highlights-template.php'));
 
     // if none found use the default template
     $template = ( $template == '' ) ? ANP_NETWORK_CONTENT_PLUGIN_DIR . 'templates/anp-post-highlights-template.php' : '';
@@ -186,7 +188,7 @@ function render_sites_list($sites_array, $options_array) {
         
         // use a template for the output so that it can easily be overridden by theme
         // check for template in active theme
-        $template = locate_template(array( ANP_NETWORK_CONTENT_PLUGIN_DIR . 'anp-sites-list-template.php'));
+        $template = locate_template(array( 'plugins/anp-network-content/anp-sites-list-template.php'));
 
         // if none found use the default template
         $template = ( $template == '' ) ? ANP_NETWORK_CONTENT_PLUGIN_DIR . 'templates/anp-sites-list-template.php' : '';
@@ -243,7 +245,7 @@ function render_event_list_html( $events_array, $options_array ) {
         
         // use a template for the output so that it can easily be overridden by theme
         // check for template in active theme
-        $template = locate_template( array( ANP_NETWORK_CONTENT_PLUGIN_DIR . 'anp-event-list-template.php' ) );
+        $template = locate_template( array( 'plugins/anp-network-content/anp-event-list-template.php' ) );
         
         // if none found use the default template
         include ( $template ); 
@@ -283,7 +285,7 @@ function render_event_block_html( $posts_array, $options_array ) {
         
         // use a template for the output so that it can easily be overridden by theme
         // check for template in active theme
-        $template = locate_template( array( ANP_NETWORK_CONTENT_PLUGIN_DIR . 'glocal-network-contentanp-post-block-template.php') );
+        $template = locate_template( array( 'plugins/anp-network-content/anp-post-block-template.php') );
         
         // if none found use the default template
         $template = ( $template == '' ) ? ANP_NETWORK_CONTENT_PLUGIN_DIR . 'templates/anp-post-block-template.php' : '';

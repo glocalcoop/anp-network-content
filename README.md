@@ -4,7 +4,7 @@ Contributors: misfist
 Tags: multi-site, content
 Requires at least: 4.4
 Tested up to: 4.4.1
-Stable tag: 1.6.8
+Stable tag: 1.6.9
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -31,6 +31,14 @@ Display using a shortcode.
 `[anp_network_sites number_sites="20" exclude_sites="1,2" sort_by="registered" default_image="/path/to/image.jpg" show_meta=1 show_image=1 id="unique-id" class="class-name"]`
 
 ### Revisions
+
+= 1.6.9 June 19, 2016 =
+
+* Fixed template issue causing thumbnail not to appear when selected
+* Added conditional to block view to hide excerpt if not selected
+* Changed default view to list
+* Improved comments
+* Removed highlights template
 
 = 1.6.8 June 7, 2016 =
 

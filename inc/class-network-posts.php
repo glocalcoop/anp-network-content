@@ -62,7 +62,7 @@ class ANP_Network_Posts_Widget extends WP_Widget {
         }
 
         // Use glocal_networkwide_sites function to display sites
-        if(function_exists('glocal_networkwide_posts_module')) {
+        if( function_exists( 'glocal_networkwide_posts_module' ) ) {
             echo glocal_networkwide_posts_module( $instance );
         }
 

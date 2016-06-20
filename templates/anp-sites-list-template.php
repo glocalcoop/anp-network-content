@@ -1,7 +1,7 @@
 <?php
 /*
 * Template for the output of the Network Sites as list
-* Override by placing a file called plugins/glocal-network-content/anp-sites-list-template.php in your active theme
+* Override by placing a file called plugins/anp-network-content/anp-sites-list-template.php in your active theme
 */
 
 

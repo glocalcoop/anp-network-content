@@ -1,13 +1,13 @@
 <?php
 /*
 * Template for the output of the Network Posts List as blocks
-* Override by placing a file called plugins/glocal-network-content/anp-post-block-template.php in your active theme
+* Override by placing a file called plugins/anp-network-content/anp-post-block-template.php in your active theme
 */ 
 
 $html .= '<article id="post-' . $post_id . '" class="post entry hentry" role="article">';
 
 $html .= '<header class="entry-header">';
-if( !empty( $show_thumbnail ) && !empty( $post_detail['post_image'] ) ) {
+if( $show_thumbnail && !empty( $post_detail['post_image'] ) ) {
 	//Show image
 	$html .= '<div class="entry-image">';
 	$html .= '<a href="' . esc_url( $post_detail['permalink'] ) . '" class="entry-image-link">';
@@ -41,9 +41,11 @@ if( !empty( $show_meta ) ) {
 }
 $html .= '</header>';
 
-$html .= '<div class="entry-content">';
-$html .= $post_detail['post_excerpt'];
-$html .= '</div>';
+if( !empty( $show_excerpt ) ) {
+	$html .= '<div class="entry-content">';
+	$html .= $post_detail['post_excerpt'];
+	$html .= '</div>';
+}
 
 if( !empty( $show_meta ) ) {
 	$html .= '<footer class="entry-footer">';
