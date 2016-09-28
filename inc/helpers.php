@@ -1,7 +1,7 @@
 <?php
 
 /**
- * ANP Network Content Fetch Content
+ * ANP Network Content Helpers
  *
  * @author    Pea, Glocal
  * @license   GPL-2.0+
@@ -9,7 +9,6 @@
  * @since     1.0.1
  * @package   ANP_Network_Content
  */
-
 
 /************* SORTING FUNCTIONS *****************/
 
@@ -44,9 +43,9 @@ function sort_by_site($posts_array) {
 // Input: array of sites
 // Output: array of sites sorted by last_updated
 function sort_sites_by_last_updated($sites_array) {
-    
+
     $sites = $sites_array;
-    
+
     usort($sites, function ($b, $a) {
         return strcmp($a['last_updated'], $b['last_updated']);
     });
@@ -55,9 +54,9 @@ function sort_sites_by_last_updated($sites_array) {
 // Input: array of sites
 // Output: array of sites sorted by post_count
 function sort_sites_by_most_active($sites_array) {
-    
+
     $sites = $sites_array;
-    
+
     usort($sites, function ($b, $a) {
         return strcmp($a['post_count'], $b['post_count']);
     });
@@ -70,7 +69,7 @@ function sort_array_by_key($array, $key, $order='ASC') {
     $subkey = $key;
     $b = [];
     $c = [];
-    
+
     foreach($a as $k => $v) {
         $b[$k] = strtolower($v[$subkey]);
     }
@@ -79,7 +78,7 @@ function sort_array_by_key($array, $key, $order='ASC') {
     } else {
         asort($b);
     }
-    
+
     foreach($b as $key => $val) {
         $c[] = $a[$key];
     }
@@ -105,51 +104,51 @@ function custom_post_excerpt($post_id, $length='55', $trailer=' ...') {
             array_push($words, $trailer);
             $the_excerpt = implode(' ', $words);
         endif;
-    
+
     return $the_excerpt;
 }
 
 // Input: array of posts and max number parameter
 // Output: array of posts reduced to max number
 function limit_number_posts($posts_array, $max_number) {
-    
+
     $posts = $posts_array;
     $limit = $max_number;
 
     if( $limit && ( count($posts) > $limit ) ) {
         array_splice($posts, $limit);
     }
-    
+
     return $posts;
 }
 
 // Input: site path
 // Output: site slug string
 function get_site_slug($site_path) {
-    
+
     $path = $site_path;
     $stripped_path = str_replace('/', '', $path); // Strip slashes from path to get slug
-    
+
     if(!$path) { // If there is no slug (it's the main site), make slug 'main'
         $slug = 'main';
     }
-    else { // Otherwise use the stripped path as slug  
+    else { // Otherwise use the stripped path as slug
         $slug = $stripped_path;
     }
-    
+
     return $slug;
 }
 
 // Input: post_id
 // Output: string of post classes (to be used in markup)
 function get_post_markup_class($post_id) {
-    
+
     $post_id = $post_id;
-    
+
     $markup_class_array = get_post_class(array('list-item'), (int) $post_id);
-    
+
     $post_markup_class = implode(" ", $markup_class_array);
-    
+
     return $post_markup_class;
 }
 
@@ -195,7 +194,7 @@ function sanitize_input( $input ) {
             $new_input[ $key ] = $sanitized_val;
 
         }
-        
+
     }
     return $new_input;
 }

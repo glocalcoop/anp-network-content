@@ -2,9 +2,9 @@
 /*
 * Template for the output of the Network Posts List as blocks
 * Override by placing a file called plugins/anp-network-content/anp-post-block-template.php in your active theme
-*/ 
+*/
 
-$html .= '<article id="post-' . $post_id . '" class="post entry hentry" role="article">';
+$html .= '<article id="post-' . get_the_ID(). '" class="post entry hentry" role="article">';
 
 $html .= '<header class="entry-header">';
 if( $show_thumbnail && !empty( $post_detail['post_image'] ) ) {
